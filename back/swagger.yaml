@@ -1,0 +1,309 @@
+openapi: 3.0.3
+info:
+  title: Technical Books Search API
+  description: API for searching and managing technical books using Google Books API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api/v1
+    description: Local development server
+
+paths:
+  /books/recommended:
+    get:
+      summary: Get recommended technical books by predefined keywords
+      description: Returns technical books based on predefined keywords (e.g., Recursion curriculum topics)
+      tags:
+        - Books
+      parameters:
+        - name: keyword
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [go, python, javascript, typescript, react, database, algorithm, data-structure]
+          description: Predefined technical keyword
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooksResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /books/search:
+    get:
+      summary: Search technical books by user input
+      description: Search for technical books using user-provided keywords. Returns error if results are too few (<=10 out of max 40)
+      tags:
+        - Books
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Search query keyword
+        - name: maxResults
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 40
+            maximum: 40
+          description: Maximum number of results to return
+        - name: startIndex
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 0
+          description: Index of the first result to return
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BooksResponse'
+        '400':
+          description: Too few results or invalid keyword
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /reading-list:
+    get:
+      summary: Get user's reading list
+      description: Retrieve all books in the user's reading list (tsundoku list)
+      tags:
+        - Reading List
+      parameters:
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: User ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+    post:
+      summary: Add book to reading list
+      description: Add a book to the user's reading list
+      tags:
+        - Reading List
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userId
+                - bookId
+              properties:
+                userId:
+                  type: string
+                bookId:
+                  type: string
+      responses:
+        '201':
+          description: Book added successfully
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /reading-list/{bookId}:
+    delete:
+      summary: Remove book from reading list
+      description: Remove a book from the user's reading list
+      tags:
+        - Reading List
+      parameters:
+        - name: bookId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Book ID to remove
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: User ID
+      responses:
+        '204':
+          description: Book removed successfully
+        '404':
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /favorites:
+    get:
+      summary: Get user's favorite books
+      description: Retrieve all books marked as favorites by the user
+      tags:
+        - Favorites
+      parameters:
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: User ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+    post:
+      summary: Add book to favorites
+      description: Add a book to the user's favorites
+      tags:
+        - Favorites
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userId
+                - bookId
+              properties:
+                userId:
+                  type: string
+                bookId:
+                  type: string
+      responses:
+        '201':
+          description: Book added to favorites successfully
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /favorites/{bookId}:
+    delete:
+      summary: Remove book from favorites
+      description: Remove a book from the user's favorites
+      tags:
+        - Favorites
+      parameters:
+        - name: bookId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Book ID to remove
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: User ID
+      responses:
+        '204':
+          description: Book removed from favorites successfully
+        '404':
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    BooksResponse:
+      type: object
+      properties:
+        totalItems:
+          type: integer
+          description: Total number of books found
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Book'
+        pagination:
+          type: object
+          properties:
+            currentPage:
+              type: integer
+              description: Current page number (calculated from startIndex)
+            itemsPerPage:
+              type: integer
+              description: Number of items per page (maxResults)
+            totalPages:
+              type: integer
+              description: Total number of pages available
+            hasNextPage:
+              type: boolean
+              description: Whether there is a next page
+            hasPreviousPage:
+              type: boolean
+              description: Whether there is a previous page
+
+    Book:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Google Books volume ID
+        volumeInfo:
+          type: object
+          properties:
+            title:
+              type: string
+            authors:
+              type: array
+              items:
+                type: string
+            publisher:
+              type: string
+            publishedDate:
+              type: string
+            description:
+              type: string
+            imageLinks:
+              type: object
+              properties:
+                thumbnail:
+                  type: string
+            infoLink:
+              type: string
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Error code
