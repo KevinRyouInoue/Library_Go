@@ -7,13 +7,16 @@ on:
 jobs:
   fmt-check:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: back
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: "1.23.x"
+          go-version: "1.25.x"
       - name: Run fmt check
         run: |
           go fmt ./...
