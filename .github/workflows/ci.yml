@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [develop, main]
+
+jobs:
+  fmt-check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: back
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.25.x"
+      - name: Run fmt check
+        run: |
+          go fmt ./...
+          git diff --exit-code || (echo "Run 'go fmt ./...' locally and commit the changes"; exit 1)

@@ -11,3 +11,9 @@ back
 │   └── server           #HTTPサーバー・ルーティングの定義
 └── README.md
 ```
+
+# health check
+```bash
+go run cmd/api/main.go
+curl -i http://localhost:8080/health
+```
