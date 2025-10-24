@@ -4,11 +4,11 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/recursion-goapi-project/technical-books-search/back/internal/handler"
+	"github.com/recursion-goapi-project/technical-books-search/back/internal/server"
 )
 
 func main() {
-	http.HandleFunc("/health", handler.HealthCheckHandler)
+	r := server.NewRouter()
 	log.Println("Server is running on port 8080")
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8080", r)
 }
