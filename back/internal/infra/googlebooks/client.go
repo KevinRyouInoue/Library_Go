@@ -45,8 +45,8 @@ func (c *Client) Search(ctx context.Context, p books.SearchParams) (books.Search
 	} else {
 		params.Set("orderBy", "relevance")
 	}
-    // 明示的に startIndex を常に送る（0 の場合も）
-    params.Set("startIndex", fmt.Sprintf("%d", p.StartIndex))
+	// 明示的に startIndex を常に送る（0 の場合も）
+	params.Set("startIndex", fmt.Sprintf("%d", p.StartIndex))
 	max := p.MaxResults
 	if max <= 0 {
 		max = 20
@@ -58,7 +58,7 @@ func (c *Client) Search(ctx context.Context, p books.SearchParams) (books.Search
 	if c.apiKey != "" {
 		params.Set("key", c.apiKey)
 	}
-    // fields を指定すると maxResults が正しく反映されない場合があるため未指定とする
+	// fields を指定すると maxResults が正しく反映されない場合があるため未指定とする
 
 	endpoint := c.baseURL + "?" + params.Encode()
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, endpoint, nil)
@@ -101,8 +101,8 @@ func (c *Client) Search(ctx context.Context, p books.SearchParams) (books.Search
 }
 
 func buildQuery(p books.SearchParams) string {
-    // カテゴリは廃止し、q そのものをGoogle Booksへ渡す
-    return strings.TrimSpace(p.Query)
+	// カテゴリは廃止し、q そのものをGoogle Booksへ渡す
+	return strings.TrimSpace(p.Query)
 }
 
 // Google Books API レスポンスの構造体

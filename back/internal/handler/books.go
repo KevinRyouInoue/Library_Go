@@ -1,12 +1,12 @@
 package handler
 
 import (
-    "encoding/json"
-    "net/http"
-    "strconv"
-    "strings"
+	"encoding/json"
+	"net/http"
+	"strconv"
+	"strings"
 
-    "github.com/recursion-goapi-project/technical-books-search/back/internal/service/books"
+	"github.com/recursion-goapi-project/technical-books-search/back/internal/service/books"
 )
 
 func NewSearchBooksHandler(service *books.Service) http.HandlerFunc {
@@ -31,19 +31,19 @@ func NewSearchBooksHandler(service *books.Service) http.HandlerFunc {
 		if max > 40 {
 			max = 40
 		}
-        // 最小バリデーション: q が空なら 400
-        if strings.TrimSpace(q.Get("q")) == "" {
-            http.Error(w, "q required", http.StatusBadRequest)
-            return
-        }
+		// 最小バリデーション: q が空なら 400
+		if strings.TrimSpace(q.Get("q")) == "" {
+			http.Error(w, "q required", http.StatusBadRequest)
+			return
+		}
 
-        params := books.SearchParams{
-            Query:      q.Get("q"),
-            StartIndex: start,
-            MaxResults: max,
-            OrderBy:    q.Get("orderBy"),
-            Lang:       q.Get("lang"),
-        }
+		params := books.SearchParams{
+			Query:      q.Get("q"),
+			StartIndex: start,
+			MaxResults: max,
+			OrderBy:    q.Get("orderBy"),
+			Lang:       q.Get("lang"),
+		}
 
 		res, err := service.Search(r.Context(), params)
 		if err != nil {
