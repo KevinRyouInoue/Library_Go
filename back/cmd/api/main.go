@@ -7,8 +7,8 @@ import (
 
 	"github.com/recursion-goapi-project/technical-books-search/back/internal/handler"
 	"github.com/recursion-goapi-project/technical-books-search/back/internal/infra/googlebooks"
-	"github.com/recursion-goapi-project/technical-books-search/back/internal/service/books"
 	"github.com/recursion-goapi-project/technical-books-search/back/internal/server"
+	"github.com/recursion-goapi-project/technical-books-search/back/internal/service/books"
 )
 
 func main() {

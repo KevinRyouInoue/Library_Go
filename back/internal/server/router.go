@@ -1,9 +1,9 @@
 package server
 
 import (
-    "net/http"
 	"github.com/go-chi/chi/v5"
 	"github.com/recursion-goapi-project/technical-books-search/back/internal/handler"
+	"net/http"
 )
 
 func NewRouter(searchBooksHandler http.HandlerFunc) *chi.Mux {
