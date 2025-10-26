@@ -11,10 +11,34 @@ import (
 func NewSearchBooksHandler(service *books.Service) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		q := r.URL.Query()
+		// page/limit を優先し、startIndex/maxResults が明示されていればそれを尊重
+		page, _ := strconv.Atoi(q.Get("page"))
+		limit, _ := strconv.Atoi(q.Get("limit"))
+		if page <= 0 {
+			page = 0 // 未指定を示す
+		}
+		if limit <= 0 {
+			limit = 0
+		}
+
 		start, _ := strconv.Atoi(q.Get("startIndex"))
 		max, _ := strconv.Atoi(q.Get("maxResults"))
-		params := books.SearchParams{
-			Genre:      q.Get("genre"),
+		if page > 0 && limit > 0 {
+			start = (page - 1) * limit
+			max = limit
+		}
+		if max > 40 {
+			max = 40
+		}
+        // 最小バリデーション: q と category が両方空なら 400
+        if strings.TrimSpace(q.Get("q")) == "" && strings.TrimSpace(q.Get("category")) == "" {
+            http.Error(w, "q or category required", http.StatusBadRequest)
+            return
+        }
+
+        params := books.SearchParams{
+			// UIでは category を受け取り、内部では Genre フィールドへ渡す
+			Genre:      q.Get("category"),
 			Query:      q.Get("q"),
 			StartIndex: start,
 			MaxResults: max,

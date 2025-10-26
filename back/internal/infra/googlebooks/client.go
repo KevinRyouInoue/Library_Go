@@ -45,9 +45,8 @@ func (c *Client) Search(ctx context.Context, p books.SearchParams) (books.Search
 	} else {
 		params.Set("orderBy", "relevance")
 	}
-	if p.StartIndex > 0 {
-		params.Set("startIndex", fmt.Sprintf("%d", p.StartIndex))
-	}
+    // 明示的に startIndex を常に送る（0 の場合も）
+    params.Set("startIndex", fmt.Sprintf("%d", p.StartIndex))
 	max := p.MaxResults
 	if max <= 0 {
 		max = 20
@@ -103,18 +102,47 @@ func (c *Client) Search(ctx context.Context, p books.SearchParams) (books.Search
 }
 
 func buildQuery(p books.SearchParams) string {
-	q := strings.TrimSpace(p.Query)
-	g := strings.TrimSpace(p.Genre)
-	switch {
-	case q == "" && g == "":
-		return ""
-	case q == "":
-		return g
-	case g == "":
-		return q
-	default:
-		return q + " " + g
-	}
+    var parts []string
+    // category を subject として付与（簡易マッピング）
+    if subj := mapCategoryToSubject(strings.TrimSpace(p.Genre)); subj != "" {
+        parts = append(parts, subj)
+    }
+    if s := strings.TrimSpace(p.Query); s != "" {
+        parts = append(parts, s)
+    }
+    return strings.Join(parts, " ")
+}
+
+// カテゴリキーを subject:... へ変換。未対応は空文字。
+func mapCategoryToSubject(category string) string {
+    switch strings.ToLower(category) {
+    case "programming":
+        return "subject:Programming"
+    case "web":
+        return "(subject:\"Web Development\" OR subject:JavaScript)"
+    case "data":
+        return "(subject:Databases OR subject:\"Data Science\")"
+    case "ml":
+        return "subject:\"Machine Learning\""
+    case "security":
+        return "(subject:\"Computer Security\" OR subject:\"Information Security\")"
+    case "cloud":
+        return "(subject:\"Cloud Computing\" OR subject:DevOps)"
+    case "network":
+        return "subject:Networking"
+    case "os":
+        return "subject:\"Operating Systems\""
+    case "architecture":
+        return "subject:\"Software Architecture\""
+    case "testing":
+        return "subject:\"Software Testing\""
+    case "frontend":
+        return "(subject:\"Web Development\" OR subject:JavaScript)"
+    case "backend":
+        return "subject:\"Software Engineering\""
+    default:
+        return ""
+    }
 }
 
 // Google Books API レスポンスの構造体
