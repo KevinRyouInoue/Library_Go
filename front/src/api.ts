@@ -2,7 +2,6 @@ import type { SearchResponse } from './types';
 
 export type SearchParams = {
   q?: string;
-  category?: string;
   page?: number;
   limit?: number;
   orderBy?: 'relevance' | 'newest';
@@ -12,7 +11,6 @@ export type SearchParams = {
 export async function searchBooks(params: SearchParams): Promise<SearchResponse> {
   const usp = new URLSearchParams();
   if (params.q) usp.set('q', params.q);
-  if (params.category && params.category !== 'all') usp.set('category', params.category);
   usp.set('page', String(params.page ?? 1));
   usp.set('limit', String(params.limit ?? 20));
   if (params.orderBy) usp.set('orderBy', params.orderBy);

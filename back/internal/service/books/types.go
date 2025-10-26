@@ -2,7 +2,6 @@ package books
 
 // 書籍検索の入力パラメータ
 type SearchParams struct {
-	Genre      string
 	Query      string
 	StartIndex int
 	MaxResults int

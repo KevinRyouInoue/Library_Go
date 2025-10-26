@@ -2,11 +2,13 @@ import SearchBar from '../components/SearchBar';
 import ResultsGrid from '../components/ResultsGrid';
 import Pagination from '../components/Pagination';
 import { useBooksSearch } from '../hooks/useBooksSearch';
+import TechTags from '../components/TechTags';
 
 export default function SearchPage() {
   const {
-    state: { q, category, page, limit },
-    setQ, setCategory, setPage, setLimit,
+    state: { q, page, limit, tagKeys },
+    setQ, setPage, setLimit,
+    setTagKeys,
     loading, error, items, total, hasNext,
     canSearch, hasSearched, search,
   } = useBooksSearch({ page: 1, limit: 20 });
@@ -15,11 +17,20 @@ export default function SearchPage() {
     <div style={{ maxWidth: 960, margin: '0 auto', padding: 16 }}>
       <h1>Technical Books Search</h1>
 
+      <TechTags
+        selected={tagKeys}
+        onToggle={(key) => {
+          if (tagKeys.length === 1 && tagKeys[0] === key) {
+            setTagKeys([]); // 同じタグなら解除
+          } else {
+            setTagKeys([key]); // 別タグを選んだら置き換え
+          }
+        }}
+      />
+
       <SearchBar
         q={q}
         onChangeQ={setQ}
-        category={category}
-        onChangeCategory={(v) => { setCategory(v); setPage(1); }}
         limit={limit}
         onChangeLimit={(n) => { setLimit(n); setPage(1); if (hasSearched) search(); }}
         onSubmit={() => { setPage(1); search(); }}

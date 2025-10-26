@@ -58,8 +58,7 @@ func (c *Client) Search(ctx context.Context, p books.SearchParams) (books.Search
 	if c.apiKey != "" {
 		params.Set("key", c.apiKey)
 	}
-	// ToDo:必要フィールドを選定する
-	params.Set("fields", "totalItems,items(id,volumeInfo/title,volumeInfo/authors,volumeInfo/publishedDate,volumeInfo/description,volumeInfo/categories,volumeInfo/pageCount,volumeInfo/imageLinks/thumbnail,volumeInfo/infoLink)")
+    // fields を指定すると maxResults が正しく反映されない場合があるため未指定とする
 
 	endpoint := c.baseURL + "?" + params.Encode()
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, endpoint, nil)
@@ -102,47 +101,8 @@ func (c *Client) Search(ctx context.Context, p books.SearchParams) (books.Search
 }
 
 func buildQuery(p books.SearchParams) string {
-    var parts []string
-    // category を subject として付与（簡易マッピング）
-    if subj := mapCategoryToSubject(strings.TrimSpace(p.Genre)); subj != "" {
-        parts = append(parts, subj)
-    }
-    if s := strings.TrimSpace(p.Query); s != "" {
-        parts = append(parts, s)
-    }
-    return strings.Join(parts, " ")
-}
-
-// カテゴリキーを subject:... へ変換。未対応は空文字。
-func mapCategoryToSubject(category string) string {
-    switch strings.ToLower(category) {
-    case "programming":
-        return "subject:Programming"
-    case "web":
-        return "(subject:\"Web Development\" OR subject:JavaScript)"
-    case "data":
-        return "(subject:Databases OR subject:\"Data Science\")"
-    case "ml":
-        return "subject:\"Machine Learning\""
-    case "security":
-        return "(subject:\"Computer Security\" OR subject:\"Information Security\")"
-    case "cloud":
-        return "(subject:\"Cloud Computing\" OR subject:DevOps)"
-    case "network":
-        return "subject:Networking"
-    case "os":
-        return "subject:\"Operating Systems\""
-    case "architecture":
-        return "subject:\"Software Architecture\""
-    case "testing":
-        return "subject:\"Software Testing\""
-    case "frontend":
-        return "(subject:\"Web Development\" OR subject:JavaScript)"
-    case "backend":
-        return "subject:\"Software Engineering\""
-    default:
-        return ""
-    }
+    // カテゴリは廃止し、q そのものをGoogle Booksへ渡す
+    return strings.TrimSpace(p.Query)
 }
 
 // Google Books API レスポンスの構造体
