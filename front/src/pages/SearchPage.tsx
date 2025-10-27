@@ -6,12 +6,12 @@ import TechTags from '../components/TechTags';
 
 export default function SearchPage() {
   const {
-    state: { q, page, limit, tagKeys },
-    setQ, setPage, setLimit,
+    state: { q, page, tagKeys },
+    setQ, setPage,
     setTagKeys,
     loading, error, items, total, hasNext,
     canSearch, hasSearched, search,
-  } = useBooksSearch({ page: 1, limit: 20 });
+  } = useBooksSearch({ page: 1 });
 
   return (
     <div style={{ maxWidth: 960, margin: '0 auto', padding: 16 }}>
@@ -22,8 +22,10 @@ export default function SearchPage() {
         onToggle={(key) => {
           if (tagKeys.length === 1 && tagKeys[0] === key) {
             setTagKeys([]); // 同じタグなら解除
+            setPage(1);
           } else {
             setTagKeys([key]); // 別タグを選んだら置き換え
+            setPage(1);
           }
         }}
       />
@@ -31,8 +33,6 @@ export default function SearchPage() {
       <SearchBar
         q={q}
         onChangeQ={setQ}
-        limit={limit}
-        onChangeLimit={(n) => { setLimit(n); setPage(1); if (hasSearched) search(); }}
         onSubmit={() => { setPage(1); search(); }}
         disabled={!canSearch}
       />
@@ -50,8 +50,8 @@ export default function SearchPage() {
         page={page}
         hasNext={hasNext}
         loading={loading}
-        onPrev={() => { const np = Math.max(1, page - 1); setPage(np); search(); }}
-        onNext={() => { const np = page + 1; setPage(np); search(); }}
+        onPrev={() => { const np = Math.max(1, page - 1); setPage(np); }}
+        onNext={() => { const np = page + 1; setPage(np); }}
       />)}
     </div>
   );

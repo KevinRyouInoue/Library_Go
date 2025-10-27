@@ -3,10 +3,11 @@ import { searchBooks, type SearchParams } from '../api';
 import { getQueriesFor } from '../tags';
 import type { Book } from '../types';
 
+const PAGE_SIZE = 10;
+
 export function useBooksSearch(initial?: SearchParams) {
   const [q, setQ] = useState<string>(initial?.q ?? '');
   const [page, setPage] = useState<number>(initial?.page ?? 1);
-  const [limit, setLimit] = useState<number>(initial?.limit ?? 20);
   const [orderBy, setOrderBy] = useState<'relevance' | 'newest'>(initial?.orderBy ?? 'relevance');
   const [lang, setLang] = useState<string>(initial?.lang ?? '');
   const [tagKeys, setTagKeys] = useState<string[]>([]);
@@ -16,7 +17,7 @@ export function useBooksSearch(initial?: SearchParams) {
   const [items, setItems] = useState<Book[]>([]);
   const [total, setTotal] = useState<number>(0);
 
-  const hasNext = useMemo(() => page * limit < total, [page, limit, total]);
+  const hasNext = useMemo(() => page * PAGE_SIZE < total, [page, total]);
 
   // 検索可能条件（q または タグのいずれか）
   const canSearch = useMemo(() => q.trim() !== '' || tagKeys.length > 0, [q, tagKeys]);
@@ -44,7 +45,8 @@ export function useBooksSearch(initial?: SearchParams) {
     setLoading(true);
     setError('');
     try {
-      const data = await searchBooks({ q: finalQ, page, limit, orderBy, lang });
+      const startIndex = (page - 1) * PAGE_SIZE;
+      const data = await searchBooks({ q: finalQ, page, startIndex, orderBy, lang });
       setItems(Array.isArray(data.Items) ? data.Items : []);
       setTotal(typeof data.TotalItems === 'number' ? data.TotalItems : 0);
     } catch (e: any) {
@@ -52,14 +54,14 @@ export function useBooksSearch(initial?: SearchParams) {
     } finally {
       setLoading(false);
     }
-  }, [q, page, limit, orderBy, lang, tagKeys]);
+  }, [q, page, orderBy, lang, tagKeys]);
 
-  // 初回は自動取得しない。検索後のみ、page/limit変更で再取得。
+  // 初回は自動取得しない。検索後のみ、page 変更で再取得。
   useEffect(() => {
     if (hasSearched) {
       fetchData();
     }
-  }, [fetchData, hasSearched, page, limit]);
+  }, [fetchData, hasSearched, page]);
 
   // 入力が空（qもタグも空）になったら結果を非表示にしてエラーもクリア
   useEffect(() => {
@@ -74,13 +76,11 @@ export function useBooksSearch(initial?: SearchParams) {
   const search = useCallback(() => {
     if (!canSearch) return;
     setHasSearched(true);
-    // page は呼び出し元で調整される前提
-    fetchData();
   }, [canSearch, fetchData]);
 
   return {
-    state: { q, page, limit, orderBy, lang, tagKeys },
-    setQ, setPage, setLimit, setOrderBy, setLang,
+    state: { q, page, orderBy, lang, tagKeys },
+    setQ, setPage, setOrderBy, setLang,
     setTagKeys,
     loading, error, items, total, hasNext,
     refetch: fetchData,

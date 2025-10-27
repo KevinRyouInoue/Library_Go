@@ -12,24 +12,23 @@ import (
 func NewSearchBooksHandler(service *books.Service) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		q := r.URL.Query()
-		// page/limit を優先し、startIndex/maxResults が明示されていればそれを尊重
-		page, _ := strconv.Atoi(q.Get("page"))
-		limit, _ := strconv.Atoi(q.Get("limit"))
-		if page <= 0 {
-			page = 0 // 未指定を示す
-		}
-		if limit <= 0 {
-			limit = 0
+		// Google Books API は実質 10 件固定のため、maxResults は常に 10 を使用する。
+		const pageSize = 10
+
+		page := 1
+		if v := q.Get("page"); v != "" {
+			if parsed, err := strconv.Atoi(v); err == nil && parsed > 0 {
+				page = parsed
+			}
 		}
 
-		start, _ := strconv.Atoi(q.Get("startIndex"))
-		max, _ := strconv.Atoi(q.Get("maxResults"))
-		if page > 0 && limit > 0 {
-			start = (page - 1) * limit
-			max = limit
-		}
-		if max > 40 {
-			max = 40
+		start := 0
+		if v := q.Get("startIndex"); v != "" {
+			if parsed, err := strconv.Atoi(v); err == nil && parsed >= 0 {
+				start = parsed
+			}
+		} else {
+			start = (page - 1) * pageSize
 		}
 		// 最小バリデーション: q が空なら 400
 		if strings.TrimSpace(q.Get("q")) == "" {
@@ -40,7 +39,7 @@ func NewSearchBooksHandler(service *books.Service) http.HandlerFunc {
 		params := books.SearchParams{
 			Query:      q.Get("q"),
 			StartIndex: start,
-			MaxResults: max,
+			MaxResults: pageSize,
 			OrderBy:    q.Get("orderBy"),
 			Lang:       q.Get("lang"),
 		}

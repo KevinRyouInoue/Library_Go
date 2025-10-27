@@ -49,10 +49,10 @@ func (c *Client) Search(ctx context.Context, p books.SearchParams) (books.Search
 	params.Set("startIndex", fmt.Sprintf("%d", p.StartIndex))
 	max := p.MaxResults
 	if max <= 0 {
-		max = 20
+		max = 10
 	}
-	if max > 40 {
-		max = 40
+	if max > 10 {
+		max = 10
 	}
 	params.Set("maxResults", fmt.Sprintf("%d", max))
 	if c.apiKey != "" {

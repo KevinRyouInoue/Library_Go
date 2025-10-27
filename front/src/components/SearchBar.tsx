@@ -1,15 +1,11 @@
-import LimitSelect from './LimitSelect';
-
 type Props = {
   q: string;
   onChangeQ: (v: string) => void;
-  limit: number;
-  onChangeLimit: (v: number) => void;
   onSubmit: () => void;
   disabled?: boolean;
 };
 
-export default function SearchBar({ q, onChangeQ, limit, onChangeLimit, onSubmit, disabled }: Props) {
+export default function SearchBar({ q, onChangeQ, onSubmit, disabled }: Props) {
   return (
     <form onSubmit={(e) => { e.preventDefault(); onSubmit(); }} style={{ display: 'grid', gap: 8, marginBottom: 12 }}>
       <label style={{ fontSize: 12, color: '#333' }}>自由キーワード</label>
@@ -21,7 +17,6 @@ export default function SearchBar({ q, onChangeQ, limit, onChangeLimit, onSubmit
       />
 
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
-        <LimitSelect value={limit} onChange={(n) => { onChangeLimit(n); }} />
         <button type="submit" disabled={disabled}>検索</button>
       </div>
     </form>
