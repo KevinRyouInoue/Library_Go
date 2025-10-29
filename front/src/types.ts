@@ -14,3 +14,17 @@ export type SearchResponse = {
   TotalItems: number;
   Items: Book[];
 };
+
+export type TsundokuStatus = 'stacked' | 'reading' | 'done';
+
+export type TsundokuItem = {
+  ID: string;
+  Book: Book;
+  Note?: string;
+  Priority?: number | null;
+  Status: TsundokuStatus;
+  AddedAt: string;
+  UpdatedAt: string;
+  StartedAt?: string | null;
+  CompletedAt?: string | null;
+};

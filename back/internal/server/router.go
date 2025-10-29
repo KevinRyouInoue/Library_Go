@@ -1,12 +1,14 @@
 package server
 
 import (
-	"github.com/go-chi/chi/v5"
-	"github.com/recursion-goapi-project/technical-books-search/back/internal/handler"
 	"net/http"
+
+	"github.com/go-chi/chi/v5"
+
+	"github.com/recursion-goapi-project/technical-books-search/back/internal/handler"
 )
 
-func NewRouter(searchBooksHandler http.HandlerFunc) *chi.Mux {
+func NewRouter(searchBooksHandler http.HandlerFunc, tsundokuHandler *handler.TsundokuHandler) *chi.Mux {
 	r := chi.NewRouter()
 
 	// Health Check
@@ -14,6 +16,9 @@ func NewRouter(searchBooksHandler http.HandlerFunc) *chi.Mux {
 
 	// Technical Books Search
 	r.Get("/api/technical-books", searchBooksHandler)
+
+	// Tsundoku
+	r.Route("/api/tsundoku", tsundokuHandler.Register)
 
 	return r
 }

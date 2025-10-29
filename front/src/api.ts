@@ -1,4 +1,4 @@
-import type { SearchResponse } from './types';
+import type { Book, SearchResponse, TsundokuItem, TsundokuStatus } from './types';
 
 export type SearchParams = {
   q?: string;
@@ -7,6 +7,26 @@ export type SearchParams = {
   orderBy?: 'relevance' | 'newest';
   lang?: string;
 };
+
+export class ApiError extends Error {
+  status: number;
+
+  constructor(status: number, message: string) {
+    super(message);
+    this.status = status;
+  }
+}
+
+async function parseResponse<T>(res: Response): Promise<T> {
+  if (!res.ok) {
+    const text = await res.text();
+    throw new ApiError(res.status, text || res.statusText);
+  }
+  if (res.status === 204) {
+    return undefined as T;
+  }
+  return res.json() as Promise<T>;
+}
 
 export async function searchBooks(params: SearchParams): Promise<SearchResponse> {
   const usp = new URLSearchParams();
@@ -19,9 +39,63 @@ export async function searchBooks(params: SearchParams): Promise<SearchResponse>
   if (params.lang && params.lang !== 'all') usp.set('lang', params.lang);
 
   const res = await fetch(`/api/technical-books?${usp.toString()}`);
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`API ${res.status}: ${text}`);
+  return parseResponse<SearchResponse>(res);
+}
+
+export async function fetchTsundokuItems(status?: TsundokuStatus): Promise<TsundokuItem[]> {
+  const usp = new URLSearchParams();
+  if (status) usp.set('status', status);
+  const query = usp.toString();
+  const res = await fetch(`/api/tsundoku${query ? `?${query}` : ''}`);
+  return parseResponse<TsundokuItem[]>(res);
+}
+
+export async function createTsundokuItem(params: {
+  book: Book;
+  note?: string;
+  priority?: number | null;
+}): Promise<TsundokuItem> {
+  const payload: Record<string, unknown> = {
+    Book: params.book,
+  };
+  if (params.note) {
+    payload.Note = params.note;
   }
-  return res.json() as Promise<SearchResponse>;
+  if (typeof params.priority === 'number') {
+    payload.Priority = params.priority;
+  }
+  const res = await fetch('/api/tsundoku', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  return parseResponse<TsundokuItem>(res);
+}
+
+export async function pickupTsundokuItem(): Promise<TsundokuItem> {
+  const res = await fetch('/api/tsundoku/pickup', { method: 'POST' });
+  return parseResponse<TsundokuItem>(res);
+}
+
+export async function pickupSpecificTsundokuItem(id: string): Promise<TsundokuItem> {
+  const res = await fetch(`/api/tsundoku/${encodeURIComponent(id)}/pickup`, {
+    method: 'POST',
+  });
+  return parseResponse<TsundokuItem>(res);
+}
+
+export async function updateTsundokuStatus(id: string, status: TsundokuStatus): Promise<TsundokuItem> {
+  const res = await fetch(`/api/tsundoku/${encodeURIComponent(id)}/status`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ Status: status }),
+  });
+  return parseResponse<TsundokuItem>(res);
+}
+
+export async function restackTsundokuItem(id: string): Promise<TsundokuItem> {
+  const res = await fetch(`/api/tsundoku/${encodeURIComponent(id)}/restack`, {
+    method: 'POST',
+  });
+  return parseResponse<TsundokuItem>(res);
 }
