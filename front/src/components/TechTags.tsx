@@ -8,7 +8,7 @@ type Props = {
 export default function TechTags({ selected, onToggle }: Props) {
   return (
     <div>
-      <label style={{ fontSize: 13, color: '#475569', fontWeight: 600, marginBottom: 12, display: 'block' }}>🏷️ テクノロジータグ</label>
+      <label style={{ fontSize: 13, color: '#475569', fontWeight: 600, marginBottom: 12, display: 'block' }}>🏷️ Technology Tags</label>
       <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
         {TECH_TAGS.map((t) => {
           const active = selected.includes(t.key);

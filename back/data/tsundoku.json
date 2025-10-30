@@ -41,7 +41,7 @@
       },
       "Status": "stacked",
       "AddedAt": "2025-10-30T01:30:37.3648528Z",
-      "UpdatedAt": "2025-10-30T01:30:37.3648528Z"
+      "UpdatedAt": "2025-10-30T02:03:22.4834853Z"
     },
     "N-gWEQAAQBAJ": {
       "ID": "N-gWEQAAQBAJ",
@@ -60,11 +60,9 @@
         "Thumbnail": "http://books.google.com/books/content?id=N-gWEQAAQBAJ\u0026printsec=frontcover\u0026img=1\u0026zoom=1\u0026edge=curl\u0026source=gbs_api",
         "InfoLink": "https://play.google.com/store/books/details?id=N-gWEQAAQBAJ\u0026source=gbs_api"
       },
-      "Status": "done",
-      "AddedAt": "2025-10-30T01:04:56.9778631Z",
-      "UpdatedAt": "2025-10-30T01:05:03.5538618Z",
-      "StartedAt": "2025-10-30T01:05:01.6379492Z",
-      "CompletedAt": "2025-10-30T01:05:03.5538618Z"
+      "Status": "stacked",
+      "AddedAt": "2025-10-30T02:03:12.5881777Z",
+      "UpdatedAt": "2025-10-30T02:03:12.5881777Z"
     },
     "PPG8PvUyTOAC": {
       "ID": "PPG8PvUyTOAC",
@@ -105,10 +103,11 @@
         "Thumbnail": "http://books.google.com/books/content?id=TkB9EAAAQBAJ\u0026printsec=frontcover\u0026img=1\u0026zoom=1\u0026edge=curl\u0026source=gbs_api",
         "InfoLink": "https://play.google.com/store/books/details?id=TkB9EAAAQBAJ\u0026source=gbs_api"
       },
-      "Status": "reading",
+      "Status": "done",
       "AddedAt": "2025-10-30T01:04:58.4837823Z",
-      "UpdatedAt": "2025-10-30T01:30:52.4486228Z",
-      "StartedAt": "2025-10-30T01:30:52.4486228Z"
+      "UpdatedAt": "2025-10-30T02:03:14.7282018Z",
+      "StartedAt": "2025-10-30T01:30:52.4486228Z",
+      "CompletedAt": "2025-10-30T02:03:14.7282018Z"
     },
     "Zu7xEAAAQBAJ": {
       "ID": "Zu7xEAAAQBAJ",

@@ -121,7 +121,7 @@ export default function SearchPage({ tsundokuItems, favoriteItems, onAddTsundoku
           }}
           >
             <div style={{ fontSize: 48, marginBottom: 16 }}>📚</div>
-            上の検索ボックスでキーワードやタグを指定してみてください。
+            Try entering keywords or selecting tags from the search box above.
           </div>
         )}
 
@@ -135,7 +135,7 @@ export default function SearchPage({ tsundokuItems, favoriteItems, onAddTsundoku
             background: 'rgba(241, 245, 249, 0.8)',
             borderRadius: 8,
           }}>
-            条件に合う書籍が見つかりませんでした。キーワードやタグを変えて再検索してみてください。
+            No books found matching your criteria. Try different keywords or tags.
           </div>
         )}
       </section>

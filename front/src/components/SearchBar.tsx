@@ -8,11 +8,11 @@ type Props = {
 export default function SearchBar({ q, onChangeQ, onSubmit, disabled }: Props) {
   return (
     <form onSubmit={(e) => { e.preventDefault(); onSubmit(); }} style={{ display: 'grid', gap: 12 }}>
-      <label style={{ fontSize: 13, color: '#475569', fontWeight: 600 }}>🔎 自由キーワード</label>
+      <label style={{ fontSize: 13, color: '#475569', fontWeight: 600 }}>🔎 Free Keywords</label>
       <input
         value={q}
         onChange={(e) => onChangeQ(e.target.value)}
-        placeholder="キーワード (例: golang, react, machine learning...)"
+        placeholder="Keywords (e.g., golang, react, machine learning...)"
         style={{ 
           padding: '14px 18px',
           borderRadius: 12,
@@ -62,7 +62,7 @@ export default function SearchBar({ q, onChangeQ, onSubmit, disabled }: Props) {
             }
           }}
         >
-          検索
+          Search
         </button>
       </div>
     </form>
