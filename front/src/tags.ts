@@ -1,10 +1,10 @@
 export type TechTag = {
   key: string;
   label: string;
-  queries: string[]; // OR束でqに入れる語
+  queries: string[]; // OR bundle for q parameter
 };
 
-// キーワードはクォートして使う想定。linux に変更済み。
+// Keywords are intended to be used with quotes. Changed to linux.
 export const TECH_TAGS: TechTag[] = [
   { key: 'computer-science', label: 'Computer Science', queries: ['Computer Science'] },
   { key: 'network', label: 'Network', queries: ['computer networks', 'network protocols'] },
@@ -18,7 +18,7 @@ export const TECH_TAGS: TechTag[] = [
   { key: 'design-pattern', label: 'Design Pattern', queries: ['design patterns', 'software patterns'] },
   { key: 'git', label: 'Git/GitHub', queries: ['Git', 'GitHub'] },
   { key: 'discrete-math', label: 'Discrete Mathematics', queries: ['discrete mathematics'] },
-  { key: 'html-css', label: 'HTMLとCSS', queries: ['HTML', 'CSS'] },
+  { key: 'html-css', label: 'HTML & CSS', queries: ['HTML', 'CSS'] },
   { key: 'javascript', label: 'JavaScript', queries: ['JavaScript'] },
   { key: 'vue', label: 'Vue', queries: ['Vue', 'Vue.js', 'VueJS'] },
   { key: 'django', label: 'Django', queries: ['Django'] },
@@ -28,7 +28,7 @@ export const TECH_TAGS: TechTag[] = [
   { key: 'rails', label: 'Ruby on Rails', queries: ['Ruby on Rails', 'Rails'] },
   { key: 'unity', label: 'Unity', queries: ['Unity'] },
   { key: 'swiftui', label: 'Swift UI', queries: ['SwiftUI', 'Swift UI'] },
-  { key: 'uikit', label: 'UIKit（iOS）', queries: ['UIKit', 'iOS'] },
+  { key: 'uikit', label: 'UIKit (iOS)', queries: ['UIKit', 'iOS'] },
 ];
 
 export function getQueriesFor(keys: string[]): string[] {

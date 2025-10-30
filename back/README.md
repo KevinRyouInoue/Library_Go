@@ -3,16 +3,16 @@ back
 ├── .env.template 
 ├── .gitignore
 ├── cmd
-│   └── api
-│       └── main.go      #APIのエントリーポイント
+│   └── api
+│       └── main.go      # API entry point
 ├── go.mod
 ├── internal
-│   ├── handler          #各ハンドラーの定義
-│   └── server           #HTTPサーバー・ルーティングの定義
+│   ├── handler          # Handler definitions
+│   └── server           # HTTP server & routing definitions
 └── README.md
 ```
 
-# 起動
+# Startup
 ```bash
 go run cmd/api/main.go
 ```
@@ -23,25 +23,25 @@ curl -i http://localhost:8080/health
 ```
 
 # technical books search
-まだ暫定です
+Still provisional
 
-## エンドポイント
+## Endpoints
 - GET `/api/technical-books`
 
-### クエリパラメータ（仮）
-- `q`（任意）: 検索キーワード
-- `genre`（任意）: 追加検索語（今は `q` とスペース連結して使用）
-- `startIndex`（任意, default: 0）
-- `maxResults`（任意, default: 20, 1〜40）
-- `orderBy`（任意, default: `relevance`, 値: `relevance` | `newest`）
-- `lang`（任意, default: なし, 例: `ja`/`en`、`all`で未指定扱い）
+### Query Parameters (provisional)
+- `q` (optional): Search keywords
+- `genre` (optional): Additional search terms (currently concatenated with `q` using spaces)
+- `startIndex` (optional, default: 0)
+- `maxResults` (optional, default: 20, range: 1-40)
+- `orderBy` (optional, default: `relevance`, values: `relevance` | `newest`)
+- `lang` (optional, default: none, examples: `ja`/`en`, `all` for unspecified)
 
-### リクエスト例
+### Request Example
 ```bash
 curl "http://localhost:8080/api/technical-books?genre=programming&q=golang&startIndex=0&maxResults=10"
 ```
 
-### レスポンス例
+### Response Example
 ```json
 {
   "TotalItems": 1000000,
