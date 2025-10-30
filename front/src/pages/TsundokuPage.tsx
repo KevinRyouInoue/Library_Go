@@ -18,7 +18,7 @@ export default function TsundokuPage({ items, loading, error, onRefresh, onPicku
   const done = items.filter((item) => item.Status === 'done');
 
   const primaryError = error && !/The reading list is empty/.test(error);
-  const pickupDisabled = loading || stacked.length === 0 || reading.length > 0;
+  const pickupDisabled = loading || stacked.length === 0 || reading.length > 1;
 
   const columns: ColumnConfig[] = [
     {
@@ -35,7 +35,7 @@ export default function TsundokuPage({ items, loading, error, onRefresh, onPicku
             type="button"
             onClick={() => { onPickupSpecific(item.ID).catch(openAlert); }}
             style={tertiaryActionStyle}
-            disabled={reading.length > 0}
+            disabled={reading.length > 1}
           >
             Read this book
           </button>
@@ -45,9 +45,11 @@ export default function TsundokuPage({ items, loading, error, onRefresh, onPicku
     {
       key: 'reading',
       title: 'Currently Reading',
-      description: reading.length > 0
-        ? 'Focus on the book you\'re reading. Mark as done when finished, or return to stack.'
-        : 'Click "Pick from top" to select one book to read.',
+      description: reading.length > 1
+        ? 'Focus on your books. Mark as done when finished, or return to stack.'
+        : reading.length === 1
+        ? 'You can read up to 2 books at a time. Click "Pick from top" to select another.'
+        : 'Click "Pick from top" to select up to 2 books to read.',
       items: reading,
       renderActions: (item) => (
         <div style={readingActionRowStyle}>
