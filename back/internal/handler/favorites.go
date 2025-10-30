@@ -36,7 +36,7 @@ type addFavoriteRequest struct {
 func (h *FavoritesHandler) Add(w http.ResponseWriter, r *http.Request) {
 	var req addFavoriteRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, "invalid json body", http.StatusBadRequest)
+		http.Error(w, "Invalid JSON body", http.StatusBadRequest)
 		return
 	}
 	defer r.Body.Close()
@@ -49,9 +49,7 @@ func (h *FavoritesHandler) Add(w http.ResponseWriter, r *http.Request) {
 		case errors.Is(err, favorites.ErrAlreadyExists):
 			http.Error(w, err.Error(), http.StatusConflict)
 		default:
-			// Log the actual error for debugging
-			println("favorites.Add error:", err.Error())
-			http.Error(w, "internal error", http.StatusInternalServerError)
+			http.Error(w, "Internal server error", http.StatusInternalServerError)
 		}
 		return
 	}
@@ -62,7 +60,7 @@ func (h *FavoritesHandler) Add(w http.ResponseWriter, r *http.Request) {
 func (h *FavoritesHandler) List(w http.ResponseWriter, r *http.Request) {
 	items, err := h.service.List(r.Context())
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
 	writeJSON(w, http.StatusOK, items)
@@ -72,7 +70,7 @@ func (h *FavoritesHandler) List(w http.ResponseWriter, r *http.Request) {
 func (h *FavoritesHandler) Delete(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 	if id == "" {
-		http.Error(w, "id required", http.StatusBadRequest)
+		http.Error(w, "Book ID is required", http.StatusBadRequest)
 		return
 	}
 
@@ -84,7 +82,7 @@ func (h *FavoritesHandler) Delete(w http.ResponseWriter, r *http.Request) {
 		case errors.Is(err, favorites.ErrInvalidInput):
 			http.Error(w, err.Error(), http.StatusBadRequest)
 		default:
-			http.Error(w, "internal error", http.StatusInternalServerError)
+			http.Error(w, "Internal server error", http.StatusInternalServerError)
 		}
 		return
 	}

@@ -16,28 +16,34 @@ import (
 )
 
 func main() {
+	// Initialize environment configuration
 	apiKey := os.Getenv("BOOKS_API_KEY")
 	baseURL := os.Getenv("BOOKS_BASE_URL")
 	if baseURL == "" {
 		baseURL = "https://www.googleapis.com/books/v1/volumes"
 	}
 
+	// Setup Google Books API client and service
 	client := googlebooks.NewClient(baseURL, apiKey)
 	bookService := books.NewService(client)
 	searchHandler := handler.NewSearchBooksHandler(bookService)
 
+	// Setup Tsundoku (reading list) service
 	tsundokuRepo := buildTsundokuRepository()
 	tsundokuService := tsundoku.NewService(tsundokuRepo)
 	tsundokuHandler := handler.NewTsundokuHandler(tsundokuService)
 
+	// Setup Favorites service
 	favoritesRepo := buildFavoritesRepository()
 	favoritesService := favorites.NewService(favoritesRepo)
 	favoritesHandler := handler.NewFavoritesHandler(favoritesService)
 
+	// Initialize HTTP router and start server
 	r := server.NewRouter(searchHandler, tsundokuHandler, favoritesHandler)
-	log.Println("Server is running on port 8080")
-	if err := http.ListenAndServe(":8080", r); err != nil {
-		log.Fatalf("server exited: %v", err)
+	port := ":8080"
+	log.Printf("Server is starting on port %s", port)
+	if err := http.ListenAndServe(port, r); err != nil {
+		log.Fatalf("Server failed to start: %v", err)
 	}
 }
 

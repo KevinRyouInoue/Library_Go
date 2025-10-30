@@ -1,5 +1,48 @@
 {
   "items": {
+    "-PDPBvIPYBkC": {
+      "ID": "-PDPBvIPYBkC",
+      "Book": {
+        "ID": "-PDPBvIPYBkC",
+        "Title": "Classic Operating Systems",
+        "Authors": [
+          "Per Brinch Hansen"
+        ],
+        "PublishedDate": "2001-01-10",
+        "Description": "An essential reader containing the 25 most important papers in the development of modern operating systems for computer science and software engineering. The papers illustrate the major breakthroughs in operating system technology from the 1950s to the 1990s. The editor provides an overview chapter and puts all development in perspective with chapter introductions and expository apparatus. Essential resource for graduates, professionals, and researchers in CS with an interest in operating system principles.",
+        "Categories": [
+          "Computers"
+        ],
+        "PageCount": 626,
+        "Thumbnail": "http://books.google.com/books/content?id=-PDPBvIPYBkC\u0026printsec=frontcover\u0026img=1\u0026zoom=1\u0026edge=curl\u0026source=gbs_api",
+        "InfoLink": "http://books.google.ca/books?id=-PDPBvIPYBkC\u0026dq=(%22operating+systems%22+OR+linux)\u0026hl=\u0026as_pt=BOOKS\u0026source=gbs_api"
+      },
+      "Status": "stacked",
+      "AddedAt": "2025-10-30T01:30:40.0022187Z",
+      "UpdatedAt": "2025-10-30T01:30:40.0022187Z"
+    },
+    "-jYe2k1p5tIC": {
+      "ID": "-jYe2k1p5tIC",
+      "Book": {
+        "ID": "-jYe2k1p5tIC",
+        "Title": "Linux System Administration",
+        "Authors": [
+          "Tom Adelstein",
+          "Bill Lubanovic"
+        ],
+        "PublishedDate": "2007-03-27",
+        "Description": "This guide provides a solid background for Linux desktop users who want to move beyond the basics of Linux, and for experienced system administrators who are looking to gain more advanced skills.",
+        "Categories": [
+          "Computers"
+        ],
+        "PageCount": 299,
+        "Thumbnail": "http://books.google.com/books/content?id=-jYe2k1p5tIC\u0026printsec=frontcover\u0026img=1\u0026zoom=1\u0026edge=curl\u0026source=gbs_api",
+        "InfoLink": "http://books.google.ca/books?id=-jYe2k1p5tIC\u0026dq=(%22operating+systems%22+OR+linux)\u0026hl=\u0026as_pt=BOOKS\u0026source=gbs_api"
+      },
+      "Status": "stacked",
+      "AddedAt": "2025-10-30T01:30:37.3648528Z",
+      "UpdatedAt": "2025-10-30T01:30:37.3648528Z"
+    },
     "N-gWEQAAQBAJ": {
       "ID": "N-gWEQAAQBAJ",
       "Book": {
@@ -23,6 +66,28 @@
       "StartedAt": "2025-10-30T01:05:01.6379492Z",
       "CompletedAt": "2025-10-30T01:05:03.5538618Z"
     },
+    "PPG8PvUyTOAC": {
+      "ID": "PPG8PvUyTOAC",
+      "Book": {
+        "ID": "PPG8PvUyTOAC",
+        "Title": "Linux For Dummies",
+        "Authors": [
+          "Dee-Ann LeBlanc",
+          "Richard Blum"
+        ],
+        "PublishedDate": "2007-09-24",
+        "Description": "Focusing on Fedora Core 6, this accessible guide shows newcomers how to create a full-featured Linux desktop setup that's comparable to a Windows system Substantially revised and updated with new material on setting up a wireless home network, recycling an old Windows computer as a Linux home-networking server, running Linux on a laptop, editing digital photos, managing and playing audio and video, using open source productivity software, and more The DVD features the full Fedora Core installation and Fedora Core CD ISOs; there's also a coupon for readers who prefer to get Fedora Core on CD-ROM A companion Web site provides installation options and information on other popular Linux distributions, including SuSE, Mandriva, Linspire, Knoppix, and Ubuntu Note: CD-ROM/DVD and other supplementary materials are not included as part of eBook file.",
+        "Categories": [
+          "Computers"
+        ],
+        "PageCount": 434,
+        "Thumbnail": "http://books.google.com/books/content?id=PPG8PvUyTOAC\u0026printsec=frontcover\u0026img=1\u0026zoom=1\u0026edge=curl\u0026source=gbs_api",
+        "InfoLink": "http://books.google.ca/books?id=PPG8PvUyTOAC\u0026dq=(%22operating+systems%22+OR+linux)\u0026hl=\u0026as_pt=BOOKS\u0026source=gbs_api"
+      },
+      "Status": "stacked",
+      "AddedAt": "2025-10-30T01:30:38.1248286Z",
+      "UpdatedAt": "2025-10-30T01:30:38.1248286Z"
+    },
     "TkB9EAAAQBAJ": {
       "ID": "TkB9EAAAQBAJ",
       "Book": {
@@ -40,9 +105,10 @@
         "Thumbnail": "http://books.google.com/books/content?id=TkB9EAAAQBAJ\u0026printsec=frontcover\u0026img=1\u0026zoom=1\u0026edge=curl\u0026source=gbs_api",
         "InfoLink": "https://play.google.com/store/books/details?id=TkB9EAAAQBAJ\u0026source=gbs_api"
       },
-      "Status": "stacked",
+      "Status": "reading",
       "AddedAt": "2025-10-30T01:04:58.4837823Z",
-      "UpdatedAt": "2025-10-30T01:04:58.4837823Z"
+      "UpdatedAt": "2025-10-30T01:30:52.4486228Z",
+      "StartedAt": "2025-10-30T01:30:52.4486228Z"
     },
     "Zu7xEAAAQBAJ": {
       "ID": "Zu7xEAAAQBAJ",
@@ -61,9 +127,32 @@
         "Thumbnail": "http://books.google.com/books/content?id=Zu7xEAAAQBAJ\u0026printsec=frontcover\u0026img=1\u0026zoom=1\u0026edge=curl\u0026source=gbs_api",
         "InfoLink": "https://play.google.com/store/books/details?id=Zu7xEAAAQBAJ\u0026source=gbs_api"
       },
-      "Status": "stacked",
+      "Status": "done",
       "AddedAt": "2025-10-30T01:04:57.6657014Z",
-      "UpdatedAt": "2025-10-30T01:04:57.6657014Z"
+      "UpdatedAt": "2025-10-30T01:30:51.0762713Z",
+      "StartedAt": "2025-10-30T01:30:44.0648144Z",
+      "CompletedAt": "2025-10-30T01:30:51.0762713Z"
+    },
+    "k_ocKY0iegsC": {
+      "ID": "k_ocKY0iegsC",
+      "Book": {
+        "ID": "k_ocKY0iegsC",
+        "Title": "Linux System Programming",
+        "Authors": [
+          "Robert Love"
+        ],
+        "PublishedDate": "2007-09-18",
+        "Description": "This book is about writing software that makes the most effective use of the system you're running on -- code that interfaces directly with the kernel and core system libraries, including the shell, text editor, compiler, debugger, core utilities, and system daemons. The majority of both Unix and Linux code is still written at the system level, and Linux System Programming focuses on everything above the kernel, where applications such as Apache, bash, cp, vim, Emacs, gcc, gdb, glibc, ls, mv, and X exist. Written primarily for engineers looking to program (better) at the low level, this book is an ideal teaching tool for any programmer. Even with the trend toward high-level development, either through web software (such as PHP) or managed code (C#), someone still has to write the PHP interpreter and the C# virtual machine. Linux System Programming gives you an understanding of core internals that makes for better code, no matter where it appears in the stack. Debugging high-level code often requires you to understand the system calls and kernel behavior of your operating system, too. Key topics include: An overview of Linux, the kernel, the C library, and the C compiler Reading from and writing to files, along with other basic file I/O operations, including how the Linux kernel implements and manages file I/O Buffer size management, including the Standard I/O library Advanced I/O interfaces, memory mappings, and optimization techniques The family of system calls for basic process management Advanced process management, including real-time processes File and directories-creating, moving, copying, deleting, and managing them Memory management -- interfaces for allocating memory, managing the memory youhave, and optimizing your memory access Signals and their role on a Unix system, plus basic and advanced signal interfaces Time, sleeping, and clock management, starting with the basics and continuing through POSIX clocks and high resolution timers With Linux System Programming, you will be able to take an in-depth look at Linux from both a theoretical and an applied perspective as you cover a wide range of programming topics.",
+        "Categories": [
+          "Computers"
+        ],
+        "PageCount": 391,
+        "Thumbnail": "http://books.google.com/books/content?id=k_ocKY0iegsC\u0026printsec=frontcover\u0026img=1\u0026zoom=1\u0026edge=curl\u0026source=gbs_api",
+        "InfoLink": "http://books.google.ca/books?id=k_ocKY0iegsC\u0026dq=(%22operating+systems%22+OR+linux)\u0026hl=\u0026as_pt=BOOKS\u0026source=gbs_api"
+      },
+      "Status": "stacked",
+      "AddedAt": "2025-10-30T01:30:38.9482934Z",
+      "UpdatedAt": "2025-10-30T01:30:38.9482934Z"
     }
   }
 }

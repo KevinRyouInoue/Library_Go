@@ -2,6 +2,9 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ApiError, addFavoriteItem, fetchFavoriteItems, removeFavoriteItem } from '../api';
 import type { Book, FavoriteItem } from '../types';
 
+/**
+ * Sort favorite items by added date (oldest first)
+ */
 function sortItems(items: FavoriteItem[]): FavoriteItem[] {
   return [...items].sort((a, b) => {
     const aTime = new Date(a.AddedAt).getTime();
@@ -13,11 +16,15 @@ function sortItems(items: FavoriteItem[]): FavoriteItem[] {
   });
 }
 
+/**
+ * Custom hook for managing favorites state and operations
+ */
 export function useFavorites() {
   const [items, setItems] = useState<FavoriteItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
+  // Fetch all favorites from the API
   const refresh = useCallback(async () => {
     setLoading(true);
     try {
@@ -25,7 +32,7 @@ export function useFavorites() {
       setItems(sortItems(data));
       setError('');
     } catch (e: unknown) {
-      const message = e instanceof Error ? e.message : 'favorites fetch error';
+      const message = e instanceof Error ? e.message : 'Failed to fetch favorites';
       setError(message);
       throw e;
     } finally {
@@ -33,6 +40,7 @@ export function useFavorites() {
     }
   }, []);
 
+  // Load favorites on mount
   useEffect(() => {
     refresh().catch(() => {});
   }, [refresh]);

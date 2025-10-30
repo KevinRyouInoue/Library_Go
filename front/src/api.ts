@@ -1,5 +1,8 @@
 import type { Book, SearchResponse, TsundokuItem, TsundokuStatus, FavoriteItem } from './types';
 
+/**
+ * Parameters for searching books via Google Books API
+ */
 export type SearchParams = {
   q?: string;
   page?: number;
@@ -8,15 +11,22 @@ export type SearchParams = {
   lang?: string;
 };
 
+/**
+ * Custom error class for API-related errors
+ */
 export class ApiError extends Error {
   status: number;
 
   constructor(status: number, message: string) {
     super(message);
     this.status = status;
+    this.name = 'ApiError';
   }
 }
 
+/**
+ * Helper function to parse API responses
+ */
 async function parseResponse<T>(res: Response): Promise<T> {
   if (!res.ok) {
     const text = await res.text();
@@ -28,6 +38,9 @@ async function parseResponse<T>(res: Response): Promise<T> {
   return res.json() as Promise<T>;
 }
 
+/**
+ * Search for technical books using the Google Books API
+ */
 export async function searchBooks(params: SearchParams): Promise<SearchResponse> {
   const usp = new URLSearchParams();
   if (params.q) usp.set('q', params.q);
@@ -42,6 +55,13 @@ export async function searchBooks(params: SearchParams): Promise<SearchResponse>
   return parseResponse<SearchResponse>(res);
 }
 
+// ============================================================================
+// Tsundoku (Reading List) API
+// ============================================================================
+
+/**
+ * Fetch all tsundoku items, optionally filtered by status
+ */
 export async function fetchTsundokuItems(status?: TsundokuStatus): Promise<TsundokuItem[]> {
   const usp = new URLSearchParams();
   if (status) usp.set('status', status);
@@ -100,12 +120,21 @@ export async function restackTsundokuItem(id: string): Promise<TsundokuItem> {
   return parseResponse<TsundokuItem>(res);
 }
 
+// ============================================================================
 // Favorites API
+// ============================================================================
+
+/**
+ * Fetch all favorite items
+ */
 export async function fetchFavoriteItems(): Promise<FavoriteItem[]> {
   const res = await fetch('/api/favorites');
   return parseResponse<FavoriteItem[]>(res);
 }
 
+/**
+ * Add a book to favorites
+ */
 export async function addFavoriteItem(book: Book): Promise<FavoriteItem> {
   const res = await fetch('/api/favorites', {
     method: 'POST',
@@ -115,6 +144,9 @@ export async function addFavoriteItem(book: Book): Promise<FavoriteItem> {
   return parseResponse<FavoriteItem>(res);
 }
 
+/**
+ * Remove a book from favorites by its ID
+ */
 export async function removeFavoriteItem(bookId: string): Promise<void> {
   const res = await fetch(`/api/favorites/${encodeURIComponent(bookId)}`, {
     method: 'DELETE',

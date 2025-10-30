@@ -9,11 +9,15 @@ import type { Book, TsundokuItem, FavoriteItem } from './types';
 
 type View = 'search' | 'tsundoku' | 'favorites';
 
+/**
+ * Main application component that manages the navigation between different views
+ */
 export default function App() {
   const [view, setView] = useState<View>('search');
   const tsundoku = useTsundoku();
   const favorites = useFavorites();
 
+  // Create index maps for quick lookup of tsundoku and favorite items by ID
   const tsundokuIndex = useMemo<Partial<Record<string, TsundokuItem>>>(() => {
     const index: Record<string, TsundokuItem> = {};
     tsundoku.items.forEach((item) => {
@@ -30,6 +34,7 @@ export default function App() {
     return index;
   }, [favorites.items]);
 
+  // Handler functions for adding/removing items
   const handleAddTsundoku = (book: Book) => tsundoku.add(book);
   const handleAddFavorite = (book: Book) => favorites.add(book);
   const handleRemoveFavorite = (bookId: string) => favorites.remove(bookId);
