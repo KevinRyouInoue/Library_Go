@@ -25,7 +25,7 @@ export default function SearchPage({ tsundokuItems, favoriteItems, onAddTsundoku
   } = useBooksSearch({ page: 1 });
 
   const tagLabel = useMemo(
-    () => (hasSearched ? (loading ? '読み込み中…' : error ? <span style={{ color: 'red' }}>{error}</span> : `${total}件`) : null),
+    () => (hasSearched ? (loading ? 'Loading...' : error ? <span style={{ color: 'red' }}>{error}</span> : `${total} results`) : null),
     [hasSearched, loading, error, total]
   );
 
@@ -36,20 +36,20 @@ export default function SearchPage({ tsundokuItems, favoriteItems, onAddTsundoku
       <section style={cardStyle}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
           <span style={{ fontSize: 28 }}>🔍</span>
-          <h2 style={sectionTitleStyle}>検索条件</h2>
+          <h2 style={sectionTitleStyle}>Search Criteria</h2>
         </div>
         <p style={sectionHintStyle}>
-          タグを一つ選ぶと関連クエリが自動でセットされます。キーワードはスペース区切りで AND、引用符でフレーズ検索になります。
+          Select a tag to automatically set related queries. Use spaces for AND searches, and quotes for phrase searches.
         </p>
         <div style={{ display: 'grid', gap: 20 }}>
           <TechTags
             selected={tagKeys}
             onToggle={(key) => {
               if (tagKeys.length === 1 && tagKeys[0] === key) {
-                setTagKeys([]); // 同じタグなら解除
+                setTagKeys([]); // Deselect if same tag
                 setPage(1);
               } else {
-                setTagKeys([key]); // 別タグを選んだら置き換え
+                setTagKeys([key]); // Replace with new tag
                 setPage(1);
               }
             }}
@@ -81,10 +81,10 @@ export default function SearchPage({ tsundokuItems, favoriteItems, onAddTsundoku
         <div style={{ marginBottom: 20 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
             <span style={{ fontSize: 28 }}>📖</span>
-            <h2 style={sectionTitleStyle}>検索結果</h2>
+            <h2 style={sectionTitleStyle}>Search Results</h2>
           </div>
           <p style={sectionHintStyle}>
-            気になる本はカード右上の「⭐」でお気に入りへ、「＋」で積読リストへ追加できます。
+            Mark books with "⭐" to add to favorites, or "+" to add to reading list.
           </p>
         </div>
 

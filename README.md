@@ -24,9 +24,9 @@ A modern, full-stack web application for searching, organizing, and managing you
 ### 📖 Tsundoku (Reading List) Management
 - Add books to your reading list ("tsundoku" - Japanese for "buying books and not reading them")
 - Three status categories:
-  - **積読中 (Stacked)**: Books waiting to be read
-  - **読書中 (Reading)**: Currently reading
-  - **読了済み (Done)**: Completed books
+  - **Stacked**: Books waiting to be read
+  - **Currently Reading**: Books you're actively reading
+  - **Completed**: Finished books
 - Pick books from your stack to start reading
 - Mark books as done or return them to the stack
 
@@ -180,14 +180,14 @@ The frontend will start on `http://localhost:5173` (or `http://localhost:5174` i
 ### Add to Favorites
 1. Find a book in search results
 2. Click the ⭐ button in the top-right corner of the book card
-3. View all favorites in the "お気に入り" (Favorites) tab
+3. View all favorites in the "Favorites" tab
 
 ### Manage Reading List (Tsundoku)
 1. Add books to your reading list using the ＋ button
-2. Click "先頭から取り出す" to start reading the first book in your stack
+2. Click "Pick from Top" to start reading the first book in your stack
 3. Update book status as you progress:
-   - Mark as "読了にする" when finished
-   - Return to "積読に戻す" if you want to read it again later
+   - Mark as "Mark as Done" when finished
+   - Return to "Return to Stack" if you want to read it again later
 
 ## 🔧 Configuration
 

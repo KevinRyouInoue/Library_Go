@@ -17,73 +17,73 @@ export default function TsundokuPage({ items, loading, error, onRefresh, onPicku
   const reading = items.filter((item) => item.Status === 'reading');
   const done = items.filter((item) => item.Status === 'done');
 
-  const primaryError = error && !/積読の一覧が空です/.test(error);
+  const primaryError = error && !/The reading list is empty/.test(error);
   const pickupDisabled = loading || stacked.length === 0 || reading.length > 0;
 
   const columns: ColumnConfig[] = [
     {
       key: 'stacked',
-      title: '積読中',
+      title: 'Stacked',
       description: stacked.length > 0
-        ? `次に読む予定は先頭の「${stacked[0].Book.Title}」。再読で戻した本は末尾に並びます。`
-        : 'まだ積んでいません。検索結果のカード右上から追加してください。',
+        ? `Next up: "${stacked[0]?.Book.Title}". Books returned for re-reading are placed at the end.`
+        : 'No books in stack yet. Add them from search results using the top-right button.',
       items: stacked,
       renderActions: (item) => (
         <div style={stackedActionRowStyle}>
-          <span style={metaTextStyle}>追加日: {formatDate(item.AddedAt)}</span>
+          <span style={metaTextStyle}>Added: {formatDate(item.AddedAt)}</span>
           <button
             type="button"
             onClick={() => { onPickupSpecific(item.ID).catch(openAlert); }}
             style={tertiaryActionStyle}
             disabled={reading.length > 0}
           >
-            この本を読む
+            Read this book
           </button>
         </div>
       ),
     },
     {
       key: 'reading',
-      title: '読書中',
+      title: 'Currently Reading',
       description: reading.length > 0
-        ? '読んでいる本に集中しましょう。読み終えたら読了、まだなら積読に戻せます。'
-        : '「先頭から取り出す」で読書中の本を一冊だけ選べます。',
+        ? 'Focus on the book you\'re reading. Mark as done when finished, or return to stack.'
+        : 'Click "Pick from top" to select one book to read.',
       items: reading,
       renderActions: (item) => (
         <div style={readingActionRowStyle}>
-          <span style={metaTextStyle}>開始日: {formatDate(item.StartedAt)}</span>
+          <span style={metaTextStyle}>Started: {formatDate(item.StartedAt)}</span>
           <button
             type="button"
             onClick={() => { onUpdateStatus(item.ID, 'done').catch(openAlert); }}
             style={primaryActionStyle}
           >
-            読了にする
+            Mark as Done
           </button>
           <button
             type="button"
             onClick={() => { onUpdateStatus(item.ID, 'stacked').catch(openAlert); }}
           >
-            積読に戻す
+            Return to Stack
           </button>
         </div>
       ),
     },
     {
       key: 'done',
-      title: '読了済み',
+      title: 'Completed',
       description: done.length > 0
-        ? '再読したくなったら「積読に戻す」で末尾へ積み直せます。'
-        : '読了履歴はまだありません。',
+        ? 'Want to re-read? Use "Return to Stack" to add it back to the end of the stack.'
+        : 'No completed books yet.',
       items: done,
       renderActions: (item) => (
         <div style={readingActionRowStyle}>
-          <span style={metaTextStyle}>読了日: {formatDate(item.CompletedAt)}</span>
+          <span style={metaTextStyle}>Completed: {formatDate(item.CompletedAt)}</span>
           <button
             type="button"
             onClick={() => { onRestack(item.ID).catch(openAlert); }}
             style={secondaryActionStyle}
           >
-            積読に戻す
+            Return to Stack
           </button>
         </div>
       ),
@@ -96,7 +96,7 @@ export default function TsundokuPage({ items, loading, error, onRefresh, onPicku
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <span style={{ fontSize: 32 }}>📚</span>
-            <h2 style={sectionTitleStyle}>積読ダッシュボード</h2>
+            <h2 style={sectionTitleStyle}>Reading List Dashboard</h2>
           </div>
           <button 
             type="button" 
@@ -114,7 +114,7 @@ export default function TsundokuPage({ items, loading, error, onRefresh, onPicku
               transition: 'all 0.3s ease',
             }}
           >
-            🔄 再読み込み
+            🔄 Reload
           </button>
         </div>
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
@@ -137,10 +137,10 @@ export default function TsundokuPage({ items, loading, error, onRefresh, onPicku
               transition: 'all 0.3s ease',
             }}
           >
-            📖 先頭から取り出す
+            📖 Pick from Top
           </button>
           <span style={{ fontSize: 13, color: '#64748b' }}>
-            先頭以外を読みたいときは下のリストから選択できます。
+            To read a specific book, select from the list below.
           </span>
           {reading.length > 0 && (
             <span style={{ 
@@ -150,12 +150,12 @@ export default function TsundokuPage({ items, loading, error, onRefresh, onPicku
               padding: '6px 12px',
               borderRadius: 8,
             }}>
-              ⚠️ 読書中の本があります。まず読了にするか積読へ戻してください。
+              ⚠️ You have a book in progress. Please mark it as done or return to stack first.
             </span>
           )}
         </div>
         {primaryError && <div style={{ color: '#ef4444', marginTop: 8 }}>{error}</div>}
-        {loading && <div style={{ color: '#475569', marginTop: 8 }}>最新の積読情報を取得しています...</div>}
+        {loading && <div style={{ color: '#475569', marginTop: 8 }}>Fetching latest reading list...</div>}
       </section>
 
       <div style={columnGridStyle}>
@@ -166,7 +166,7 @@ export default function TsundokuPage({ items, loading, error, onRefresh, onPicku
               <p style={columnHintStyle}>{col.description}</p>
             </div>
             {col.items.length === 0 ? (
-              <div style={emptyStateStyle}>該当する本はまだありません。</div>
+              <div style={emptyStateStyle}>No books found in this category yet.</div>
             ) : (
               <ul style={itemListStyle}>
                 {col.items.map((item) => (
@@ -174,7 +174,7 @@ export default function TsundokuPage({ items, loading, error, onRefresh, onPicku
                     <div style={{ display: 'grid', gap: 4 }}>
                       <div style={{ fontWeight: 600, fontSize: 15 }}>{item.Book.Title}</div>
                       <div style={{ fontSize: 13, color: '#64748b' }}>{item.Book.Authors?.join(', ')}</div>
-                      {item.Note && <div style={noteStyle}>メモ: {item.Note}</div>}
+                      {item.Note && <div style={noteStyle}>Note: {item.Note}</div>}
                     </div>
                     {col.renderActions && (
                       <div style={{ marginTop: 8 }}>

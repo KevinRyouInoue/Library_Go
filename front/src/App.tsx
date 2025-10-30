@@ -74,7 +74,7 @@ export default function App() {
                 <span style={{ fontSize: 18, marginRight: 6 }}>
                   {key === 'search' ? '🔍' : key === 'tsundoku' ? '📖' : '⭐'}
                 </span>
-                {key === 'search' ? '検索' : key === 'tsundoku' ? '積読リスト' : 'お気に入り'}
+                {key === 'search' ? 'Search' : key === 'tsundoku' ? 'Reading List' : 'Favorites'}
               </button>
             ))}
           </nav>

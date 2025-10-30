@@ -16,7 +16,7 @@ export default function FavoritesPage({ items, loading, error, onRefresh, onRemo
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <span style={{ fontSize: 32 }}>⭐</span>
-            <h2 style={titleStyle}>お気に入り一覧</h2>
+            <h2 style={titleStyle}>Favorites List</h2>
           </div>
           <button 
             type="button" 
@@ -34,19 +34,19 @@ export default function FavoritesPage({ items, loading, error, onRefresh, onRemo
               transition: 'all 0.3s ease',
             }}
           >
-            🔄 再読み込み
+            🔄 Reload
           </button>
         </div>
         {error && <div style={{ color: '#ef4444', marginTop: 8, fontSize: 14 }}>{error}</div>}
-        {loading && <div style={{ color: '#667eea', marginTop: 8, fontSize: 14 }}>⏳ お気に入りを取得しています...</div>}
+        {loading && <div style={{ color: '#667eea', marginTop: 8, fontSize: 14 }}>⏳ Loading favorites...</div>}
       </section>
 
       {items.length === 0 ? (
         <section style={emptyCardStyle}>
           <div style={emptyStateStyle}>
             <div style={{ fontSize: 64, marginBottom: 20 }}>⭐</div>
-            お気に入りの本はまだありません。<br />
-            検索結果から「⭐」ボタンで登録できます。
+            No favorite books yet.<br />
+            Mark books with "⭐" from search results.
           </div>
         </section>
       ) : (
@@ -65,12 +65,12 @@ export default function FavoritesPage({ items, loading, error, onRefresh, onRemo
                   <h3 style={bookTitleStyle}>{item.Book.Title}</h3>
                   <div style={authorsStyle}>{item.Book.Authors?.join(', ')}</div>
                   {item.Book.PublishedDate && (
-                    <div style={metaStyle}>📅 出版日: {item.Book.PublishedDate}</div>
+                    <div style={metaStyle}>📅 Published: {item.Book.PublishedDate}</div>
                   )}
                   {item.Book.PageCount && (
-                    <div style={metaStyle}>📄 ページ数: {item.Book.PageCount}</div>
+                    <div style={metaStyle}>📄 Pages: {item.Book.PageCount}</div>
                   )}
-                  <div style={metaStyle}>🕒 追加日: {formatDate(item.AddedAt)}</div>
+                  <div style={metaStyle}>🕒 Added: {formatDate(item.AddedAt)}</div>
                 </div>
                 <div style={actionRowStyle}>
                   {item.Book.InfoLink && (
@@ -80,7 +80,7 @@ export default function FavoritesPage({ items, loading, error, onRefresh, onRemo
                       rel="noopener noreferrer"
                       style={linkButtonStyle}
                     >
-                      詳細を見る
+                      View Details
                     </a>
                   )}
                   <button
@@ -88,7 +88,7 @@ export default function FavoritesPage({ items, loading, error, onRefresh, onRemo
                     onClick={() => { onRemove(item.ID).catch(openAlert); }}
                     style={removeButtonStyle}
                   >
-                    🗑️ 削除
+                    🗑️ Remove
                   </button>
                 </div>
               </div>
