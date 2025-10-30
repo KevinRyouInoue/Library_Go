@@ -1,4 +1,4 @@
-import type { Book, SearchResponse, TsundokuItem, TsundokuStatus } from './types';
+import type { Book, SearchResponse, TsundokuItem, TsundokuStatus, FavoriteItem } from './types';
 
 export type SearchParams = {
   q?: string;
@@ -98,4 +98,26 @@ export async function restackTsundokuItem(id: string): Promise<TsundokuItem> {
     method: 'POST',
   });
   return parseResponse<TsundokuItem>(res);
+}
+
+// Favorites API
+export async function fetchFavoriteItems(): Promise<FavoriteItem[]> {
+  const res = await fetch('/api/favorites');
+  return parseResponse<FavoriteItem[]>(res);
+}
+
+export async function addFavoriteItem(book: Book): Promise<FavoriteItem> {
+  const res = await fetch('/api/favorites', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ Book: book }),
+  });
+  return parseResponse<FavoriteItem>(res);
+}
+
+export async function removeFavoriteItem(bookId: string): Promise<void> {
+  const res = await fetch(`/api/favorites/${encodeURIComponent(bookId)}`, {
+    method: 'DELETE',
+  });
+  return parseResponse<void>(res);
 }

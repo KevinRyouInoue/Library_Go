@@ -28,3 +28,9 @@ export type TsundokuItem = {
   StartedAt?: string | null;
   CompletedAt?: string | null;
 };
+
+export type FavoriteItem = {
+  ID: string;
+  Book: Book;
+  AddedAt: string;
+};

@@ -1,0 +1,80 @@
+{
+  "items": {
+    "J8crEAAAQBAJ": {
+      "ID": "J8crEAAAQBAJ",
+      "Book": {
+        "ID": "J8crEAAAQBAJ",
+        "Title": "Vue.js 3 By Example",
+        "Authors": [
+          "John Au-Yeung"
+        ],
+        "PublishedDate": "2021-04-26",
+        "Description": "Kick-start your Vue.js development career by learning the fundamentals of Vue 3 and its integration with modern web technologies such as Electron, GraphQL, Ionic, and Laravel Key FeaturesDownload complete source code for all Vue.js projects built throughout the bookDiscover steps to build production-ready Vue.js apps across web, mobile, and desktopBuild a compelling portfolio of web apps, including shopping cart system, booking app, slider puzzle game, real-time chat app, and moreBook Description With its huge ecosystem and wide adoption, Vue is one of the leading frameworks thanks to its ease of use when developing applications. However, it can get challenging for aspiring Vue.js developers to make sense of the ecosystem and build meaningful applications. This book will help you understand how you can leverage Vue effectively to develop impressive apps quickly using its latest version – Vue 3.0. The book takes an example-based approach to help you get to grips with the basics of Vue 3 and create a simple application by exploring features such as components and directives. You'll then enhance your app building skills by learning how to test the app with Jest and Vue Test Utils. As you advance, you'll understand how to write non-web apps with Vue 3, create cross-platform desktop apps with the Electron plugin, and build a multi-purpose mobile app with Vue and Ionic. You'll also be able to develop web apps with Vue 3 that interact well with GraphQL APIs. Finally, you'll build a chat app that performs real-time communication using Vue 3 and Laravel. By the end of this Vue.js book, you'll have developed the skills you need to build real-world apps using Vue 3 by working through a range of projects. What you will learnGet to grips with Vue architecture, components, props, directives, mixins, and other advanced featuresUnderstand the Vue 3 template system and use directivesUse third-party libraries such as Vue Router for routing and Vuex for state managementCreate GraphQL APIs to power your Vue 3 web appsBuild cross-platform Vue 3 apps with Electron and IonicMake your Vue 3 apps more captivating with PrimeVueBuild real-time communication apps with Vue 3 as the frontend and LaravelWho this book is for This book is for web developers who want to learn frontend web development with Vue 3 and use it to create professional applications. You'll also find this book useful if you're looking to create full-stack web apps with Vue.js 3.0 as the frontend. Knowledge of JavaScript programming is required to get the most out of this book.",
+        "Categories": [
+          "Computers"
+        ],
+        "PageCount": 321,
+        "Thumbnail": "http://books.google.com/books/content?id=J8crEAAAQBAJ\u0026printsec=frontcover\u0026img=1\u0026zoom=1\u0026edge=curl\u0026source=gbs_api",
+        "InfoLink": "https://play.google.com/store/books/details?id=J8crEAAAQBAJ\u0026source=gbs_api"
+      },
+      "AddedAt": "2025-10-30T01:04:56.0153457Z"
+    },
+    "N-gWEQAAQBAJ": {
+      "ID": "N-gWEQAAQBAJ",
+      "Book": {
+        "ID": "N-gWEQAAQBAJ",
+        "Title": "Vue.js 3 for Beginners",
+        "Authors": [
+          "Simone Cuomo"
+        ],
+        "PublishedDate": "2024-09-06",
+        "Description": "Gain proficiency in Vue.js 3 and its core libraries, including Pinia, Vue Router, and Vitest, by developing a social media web application with detailed, hands-on instructions Key Features Discover best practices for building scalable and performant Vue.js applications Learn the basics of component-based architecture Familiarize yourself with Vue.js core libraries and ecosystem Purchase of the print or Kindle book includes a free PDF eBook Book DescriptionDiscover why Vue.js is a must-learn JavaScript framework for aspiring developers. If you’re a beginner fascinated by Vue.js and its potential, then this book will show you how the progressive and versatile framework can help you build performant applications. Written by an accomplished software architect with over 12 years of experience, Vue.js 3 for Beginners provides a solid foundation in Vue.js and guides you at every step to create a robust social media application, component by component. Starting with a clean canvas using plain HTML and CSS, you’ll learn new topics to build your application incrementally. Beyond the core features, you’ll explore crucial parts of the Vue.js ecosystem, such as state management with Pinia, routing with Vue Router, and testing with Vitest, and Cypress. The structured GitHub repository ensures a smooth transition from one chapter to the next, offering valuable insights into advanced topics, techniques, and resources. This book is designed to serve as a practical reference guide, allowing you to quickly revisit specific topics when needed. By the end of the book, you’ll have built a strong understanding of Vue.js and be ready to build simple applications effortlessly.What you will learn Gain practical knowledge of the Vue.js framework Deepen your understanding of Pinia, Vue Router, validation libraries, and their integration with Vue.js applications Explore the core concepts of Vue.js, including components, directives, and data binding Create scalable, maintainable applications from scratch Build applications using the script setup and the Composition API Debug your applications with the Vue debugger tool Who this book is for Vue.js for Beginners is for aspiring web developers, students, hobbyists, or anyone who wants to learn Vue.js from scratch and is eager to foray into front-end development using this modern and popular framework. Basic knowledge of HTML, CSS, and JavaScript is required to fully grasp the content of this Vue.js book.",
+        "Categories": [
+          "Computers"
+        ],
+        "PageCount": 302,
+        "Thumbnail": "http://books.google.com/books/content?id=N-gWEQAAQBAJ\u0026printsec=frontcover\u0026img=1\u0026zoom=1\u0026edge=curl\u0026source=gbs_api",
+        "InfoLink": "https://play.google.com/store/books/details?id=N-gWEQAAQBAJ\u0026source=gbs_api"
+      },
+      "AddedAt": "2025-10-30T01:04:55.2284628Z"
+    },
+    "TkB9EAAAQBAJ": {
+      "ID": "TkB9EAAAQBAJ",
+      "Book": {
+        "ID": "TkB9EAAAQBAJ",
+        "Title": "Getting started with Vue Native",
+        "Authors": [
+          "Andrés Cruz"
+        ],
+        "PublishedDate": "",
+        "Description": "Vue Native is a framework to create native mobile applications for Android and IOS using JavaScript, specifically Vue; with this technology we can create good quality mobile applications. Another fundamental point is that Vue Native uses the React Native code for each of the components that we have to create our applications; therefore, Vue Native communicates directly with the React Native core to be able to display through components, images, texts, buttons, lists, and much more. The fundamental window that this platform has is that we can use the Vue and React Naive plugins to create our applications. Unfortunately this technology was obsolete at the time of writing this book; therefore, the book does not have all the chapters that were initially thought and it remains as a reference to start with this framework. However, even if it is obsolete or deprecated, it helps us to know everything that this tool offers us, we can use it to encourage us to develop in similar frameworks such as React Native, Galio, among others. As a recommendation, use Visual Studio Code as editor, since it is an excellent editor, with many customization options, extensions, intuitive, light and that you can develop in a lot of platforms, technologies, frameworks and programming languages; so overall Visual Studio Code will be a great companion for you; but, if you prefer other editors like Sublime Text, PHPStorm or similar, you can use it without any problem. Chapters This book has a total of 8 chapters, it is recommended that you read in the order in which they are arranged and as we explain the components of the framework, go directly to the practice, replicate, test and modify the codes that we show in this book. Chapter 1: It explains what is the necessary software, and its installation to develop in Vue Native. Chapter 2: We'll talk about Vue Native technology, create a project, and do some very basic testing. Chapter 3: We will give a detailed explanation of each of the most used components in Vue Native. Chapter 4: We will use a plugin to enable navigation between screens and see its practical use. Chapter 5: We will see the different ways to work with the styles in a project in Vue Native. Chapter 6: We will create a listing app consuming a Rest API on the Internet. Chapter 7: We will see the use of animations in Vue Native in a basic way along with tweens. Chapter 8: We will create a CRUD type application with forms, lists, several pages, validations, confirmation messages and redirections. Who is this book for This book is for anyone who wants to get started with mobile development and knows the basics of Vue. For those who want to know the framework and who know Vue, who want to know current frameworks similar to this one, but do not have the necessary knowledge to venture into these because they do not know the bases that support them. For those people who want to learn something new, learn about a framework that has very little documentation, who want to improve a skill in web development, who want to grow as a developer and who want to continue climbing their path with others frameworks superior to this; As long as you meet at least some of the above considerations, this book is for you.",
+        "Categories": [
+          "Computers"
+        ],
+        "PageCount": 137,
+        "Thumbnail": "http://books.google.com/books/content?id=TkB9EAAAQBAJ\u0026printsec=frontcover\u0026img=1\u0026zoom=1\u0026edge=curl\u0026source=gbs_api",
+        "InfoLink": "https://play.google.com/store/books/details?id=TkB9EAAAQBAJ\u0026source=gbs_api"
+      },
+      "AddedAt": "2025-10-30T01:04:53.628004Z"
+    },
+    "Zu7xEAAAQBAJ": {
+      "ID": "Zu7xEAAAQBAJ",
+      "Book": {
+        "ID": "Zu7xEAAAQBAJ",
+        "Title": "Getting started with Vue 3",
+        "Authors": [
+          "Andres Cruz Yoris"
+        ],
+        "PublishedDate": "",
+        "Description": "Vue is a versatile framework used in creating SPA-type websites; It is a modular, component-based technology where a component can be seen as a small piece of code and we can group components together to create more complex components. Vue is a small, simple and lightweight framework if we compare it with other frameworks like React or Angular, but its simplicity gives us windows like: Less steep learning curve than your competition. The framework is smaller than the competition (about 470 KB and 18 KB minified). It is a versatile framework which means that it can be used together with other solutions such as typescript. It is a reactive framework, which means that when your data model is updated the view is updated and vice versa. Vue is a progressive framework, which means that we can extend it through other officially supported plugins such as Vuex, Router, Testing, among others. This book is mostly practical, we will learn the basics of Vue, knowing its main features based on a small application that we will expand chapter after chapter. This book consists of 5 chapters, with which we will learn in detail the most important and basic features of Vue in version 3: Chapter 1: In this chapter we are going to learn about the basic features of Vue such as its main features, installation modes and project creation, we will make a hello world to present the main features of the web framework. Chapter 2: In this chapter we are going to learn about the 3 blocks of Vue, script block, template and style, in addition to creating small examples to present the main features of Vue. Chapter 3: In this chapter we are going to create our first CRUD type project using Vue and an existing CRUD type Rest Api; that is, a Rest Api with a limited scope using with Oruga UI as a component-based client-side web framework. Chapter 4: In this chapter we are going to create another CRUD type application in Vue using Naive UI instead of Oruga UI as a component-based web framework. Chapter 5: In this chapter we are going to create an application with Pinia and learn how to use this state manager and understand its components, which are the store, state, actions and getters. About the Book This guide is intended to take your first steps with Vue 3 using JavaScript; with this, we are going to propose two things: It is not a book that aims to know 100% of Vue in its version 3, or from zero to expert, since it would be too big an objective for the scope of this guide, otherwise, to know what it offers us and create the first web applications with Vue, know the use of components, hooks among other features of the framework. It is assumed that the reader has at least basic knowledge of JavaScript, HTML and CSS. This book has a practical approach, knowing the key aspects of the technology and moving into practice, gradually implementing small features of an application that has real scope. To follow this book you need to have a computer with Windows, Linux or MacOS. The book is currently in development. This book is currently in development and will have more chapters both at the end and in intermediate chapters; The book has two chapters taken from other books (Laravel and Django) that were adapted for this book.",
+        "Categories": [
+          "Computers"
+        ],
+        "PageCount": 191,
+        "Thumbnail": "http://books.google.com/books/content?id=Zu7xEAAAQBAJ\u0026printsec=frontcover\u0026img=1\u0026zoom=1\u0026edge=curl\u0026source=gbs_api",
+        "InfoLink": "https://play.google.com/store/books/details?id=Zu7xEAAAQBAJ\u0026source=gbs_api"
+      },
+      "AddedAt": "2025-10-30T01:04:54.5346284Z"
+    }
+  }
+}

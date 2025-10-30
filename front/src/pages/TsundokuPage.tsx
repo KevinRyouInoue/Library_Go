@@ -91,28 +91,67 @@ export default function TsundokuPage({ items, loading, error, onRefresh, onPicku
   ];
 
   return (
-    <div style={{ display: 'grid', gap: 24 }}>
+    <div style={{ display: 'grid', gap: 32 }}>
       <section style={summaryCardStyle}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
-          <h2 style={{ margin: 0, fontSize: 22 }}>積読ダッシュボード</h2>
-          <button type="button" onClick={() => { onRefresh().catch(openAlert); }} disabled={loading}>
-            再読み込み
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span style={{ fontSize: 32 }}>📚</span>
+            <h2 style={sectionTitleStyle}>積読ダッシュボード</h2>
+          </div>
+          <button 
+            type="button" 
+            onClick={() => { onRefresh().catch(openAlert); }} 
+            disabled={loading}
+            style={{
+              padding: '10px 20px',
+              borderRadius: 12,
+              border: 'none',
+              background: loading ? '#cbd5e1' : 'rgba(102, 126, 234, 0.1)',
+              color: loading ? '#94a3b8' : '#667eea',
+              fontSize: 14,
+              fontWeight: 600,
+              cursor: loading ? 'not-allowed' : 'pointer',
+              transition: 'all 0.3s ease',
+            }}
+          >
+            🔄 再読み込み
           </button>
         </div>
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
           <button
             type="button"
             onClick={() => { onPickup().catch(openAlert); }}
             disabled={pickupDisabled}
-            style={primaryActionStyle}
+            style={{
+              padding: '12px 24px',
+              borderRadius: 12,
+              border: 'none',
+              background: pickupDisabled 
+                ? '#cbd5e1' 
+                : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              color: '#fff',
+              fontSize: 15,
+              fontWeight: 600,
+              cursor: pickupDisabled ? 'not-allowed' : 'pointer',
+              boxShadow: pickupDisabled ? 'none' : '0 4px 15px rgba(102, 126, 234, 0.4)',
+              transition: 'all 0.3s ease',
+            }}
           >
-            先頭から取り出す
+            📖 先頭から取り出す
           </button>
-          <span style={{ fontSize: 12, color: '#64748b' }}>
+          <span style={{ fontSize: 13, color: '#64748b' }}>
             先頭以外を読みたいときは下のリストから選択できます。
           </span>
           {reading.length > 0 && (
-            <span style={{ fontSize: 12, color: '#f97316' }}>読書中の本があります。まず読了にするか積読へ戻してください。</span>
+            <span style={{ 
+              fontSize: 13, 
+              color: '#f97316',
+              background: 'rgba(249, 115, 22, 0.1)',
+              padding: '6px 12px',
+              borderRadius: 8,
+            }}>
+              ⚠️ 読書中の本があります。まず読了にするか積読へ戻してください。
+            </span>
           )}
         </div>
         {primaryError && <div style={{ color: '#ef4444', marginTop: 8 }}>{error}</div>}
@@ -176,50 +215,66 @@ function openAlert(err: unknown) {
 }
 
 const summaryCardStyle: CSSProperties = {
-  background: '#ffffff',
-  borderRadius: 18,
-  padding: '24px 28px',
-  boxShadow: '0 14px 40px rgba(15, 23, 42, 0.12)',
+  background: 'rgba(255, 255, 255, 0.98)',
+  borderRadius: 20,
+  padding: '32px',
+  boxShadow: '0 10px 40px rgba(102, 126, 234, 0.15)',
   display: 'grid',
-  gap: 12,
+  gap: 16,
+  border: '1px solid rgba(102, 126, 234, 0.1)',
+  backdropFilter: 'blur(10px)',
+};
+
+const sectionTitleStyle: CSSProperties = {
+  margin: 0,
+  fontSize: 24,
+  fontWeight: 700,
+  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
 };
 
 const columnGridStyle: CSSProperties = {
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-  gap: 20,
+  gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+  gap: 24,
 };
 
 const columnCardStyle: CSSProperties = {
   background: '#ffffff',
   borderRadius: 16,
-  padding: '20px 22px',
-  boxShadow: '0 10px 28px rgba(15, 23, 42, 0.08)',
+  padding: '24px',
+  boxShadow: '0 8px 28px rgba(102, 126, 234, 0.12)',
   display: 'grid',
-  gap: 16,
-  minHeight: 220,
+  gap: 20,
+  minHeight: 240,
+  border: '1px solid rgba(102, 126, 234, 0.1)',
 };
 
 const columnTitleStyle: CSSProperties = {
   margin: 0,
-  fontSize: 18,
-  fontWeight: 600,
-  color: '#0f172a',
+  fontSize: 20,
+  fontWeight: 700,
+  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
 };
 
 const columnHintStyle: CSSProperties = {
-  margin: '6px 0 0',
-  fontSize: 13,
+  margin: '8px 0 0',
+  fontSize: 14,
   color: '#64748b',
+  lineHeight: 1.6,
 };
 
 const emptyStateStyle: CSSProperties = {
-  background: '#f8fafc',
+  background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%)',
   borderRadius: 12,
-  padding: '24px 16px',
+  padding: '32px 16px',
   textAlign: 'center',
   color: '#94a3b8',
-  fontSize: 13,
+  fontSize: 14,
+  border: '2px dashed rgba(102, 126, 234, 0.2)',
 };
 
 const itemListStyle: CSSProperties = {
