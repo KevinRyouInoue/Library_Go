@@ -42,7 +42,7 @@ export default function Pagination({ page, hasNext, loading, onPrev, onNext }: P
           }
         }}
       >
-        ← 前へ
+        ← Previous
       </button>
       <span style={{
         padding: '10px 20px',
@@ -83,7 +83,7 @@ export default function Pagination({ page, hasNext, loading, onPrev, onNext }: P
           }
         }}
       >
-        次へ →
+        Next →
       </button>
     </div>
   );

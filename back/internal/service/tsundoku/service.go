@@ -77,7 +77,7 @@ func (s *Service) Pickup(ctx context.Context) (Item, error) {
 	if err != nil {
 		return Item{}, err
 	}
-	if len(readings) > 0 {
+	if len(readings) > 1 {
 		return Item{}, ErrReadingInProgress
 	}
 
@@ -104,7 +104,7 @@ func (s *Service) StartReading(ctx context.Context, id string) (Item, error) {
 	if err != nil {
 		return Item{}, err
 	}
-	if len(readings) > 0 {
+	if len(readings) > 1 {
 		return Item{}, ErrReadingInProgress
 	}
 
