@@ -1,244 +1,256 @@
-# 📚 Technical Books Library
+# Technical Books Search
 
-A modern, full-stack web application for searching, organizing, and managing your technical book collection with an intuitive and beautiful user interface.
+A full-stack web application for searching and managing technical books using Google Books API.
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Go Version](https://img.shields.io/badge/go-1.25.3-blue.svg)
-![React](https://img.shields.io/badge/react-18.3.1-blue.svg)
-![Vite](https://img.shields.io/badge/vite-7.1.10-purple.svg)
+![React](https://img.shields.io/badge/react-19.1.1-blue.svg)
 
-## ✨ Features
+## System Architecture
 
-### 🔍 Book Search
-- Search technical books using the Google Books API
-- Filter by technology tags (JavaScript, Python, Go, React, etc.)
-- Real-time search with pagination
-- Detailed book information with cover images
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                         Client Browser                          │
+│                    React SPA (Vite + TypeScript)                │
+└──────────────────────────┬──────────────────────────────────────┘
+                           │ HTTP/REST
+                           │
+┌──────────────────────────▼──────────────────────────────────────┐
+│                       Backend API (Go)                          │
+│  ┌──────────────────────────────────────────────────────────┐  │
+│  │  Handler Layer (HTTP Controllers)                         │  │
+│  │    - SearchBooksHandler                                   │  │
+│  │    - TsundokuHandler                                      │  │
+│  │    - FavoritesHandler                                     │  │
+│  └────────────────┬─────────────────────────────────────────┘  │
+│                   │                                             │
+│  ┌────────────────▼─────────────────────────────────────────┐  │
+│  │  Service Layer (Business Logic)                          │  │
+│  │    - books.Service                                        │  │
+│  │    - tsundoku.Service                                     │  │
+│  │    - favorites.Service                                    │  │
+│  └───┬──────────────────────────────────────────┬───────────┘  │
+│      │                                           │               │
+│  ┌───▼─────────────────────┐      ┌────────────▼───────────┐  │
+│  │ Infrastructure Layer    │      │ Repository Interface   │  │
+│  │  - GoogleBooks Client   │      │  - Favorites Repo      │  │
+│  │    (External API)       │      │  - Tsundoku Repo       │  │
+│  └───┬─────────────────────┘      └────────────┬───────────┘  │
+└──────┼──────────────────────────────────────────┼──────────────┘
+       │                                           │
+       │                                           │
+┌──────▼──────────────────────┐      ┌────────────▼───────────┐
+│  Google Books API v1        │      │  File Storage (JSON)   │
+│  (External Service)         │      │  - favorites.json      │
+└─────────────────────────────┘      │  - tsundoku.json       │
+                                     └────────────────────────┘
+```
 
-### ⭐ Favorites System
-- Mark books as favorites with a single click
-- View all favorite books in a dedicated page
-- Beautiful card grid layout with book details
-- Easy add/remove functionality
+## Features
 
-### 📖 Tsundoku (Reading List) Management
-- Add books to your reading list ("tsundoku" - Japanese for "buying books and not reading them")
-- Three status categories:
-  - **Stacked**: Books waiting to be read
-  - **Currently Reading**: Books you're actively reading
-  - **Completed**: Finished books
-- Pick books from your stack to start reading
-- Mark books as done or return them to the stack
+### Book Search
+- Search technical books via Google Books API
+- Technology tag filtering
+- Pagination support
+- Real-time search results
 
-### 🎨 Modern UI/UX
-- Beautiful gradient theme (purple to violet)
-- Smooth animations and hover effects
-- Glassmorphism design with backdrop blur
-- Responsive card layouts
-- Interactive elements with visual feedback
-- Mobile-friendly interface
+### Favorites Management
+- Add/remove favorite books
+- Persistent storage
+- Dedicated favorites view
 
-## 🚀 Tech Stack
+### Tsundoku (Reading List)
+- Track reading progress with three statuses: Stacked, Currently Reading, Completed
+- Add books to reading list
+- Update reading status
+
+## API Endpoints
+
+### Books
+- `GET /api/technical-books` - Search books with query parameters
+  - `q`: search keywords
+  - `genre`: additional search terms
+  - `startIndex`: pagination start (default: 0)
+  - `maxResults`: results per page (1-40, default: 20)
+  - `orderBy`: sort order (relevance/newest)
+  - `lang`: language filter (ja/en)
+
+### Tsundoku
+- `GET /api/tsundoku` - Get all reading list items
+- `POST /api/tsundoku` - Add book to reading list
+- `PUT /api/tsundoku/:id/status` - Update book status
+- `DELETE /api/tsundoku/:id` - Remove from reading list
+
+### Favorites
+- `GET /api/favorites` - Get all favorites
+- `POST /api/favorites` - Add to favorites
+- `DELETE /api/favorites/:id` - Remove from favorites
+
+## Tech Stack
 
 ### Backend
 - **Language**: Go 1.25.3
 - **Router**: chi v5.2.3
-- **API**: Google Books API v1
-- **Storage**: File-based JSON storage
-- **Architecture**: Service layer pattern with repository interface
+- **External API**: Google Books API v1
+- **Storage**: File-based JSON
+- **Architecture**: Clean architecture with service layer pattern
 
 ### Frontend
-- **Framework**: React 18.3.1 with TypeScript
-- **Build Tool**: Vite 7.1.10
-- **Styling**: Inline styles with CSS-in-JS approach
-- **State Management**: React Hooks (useState, useMemo, useCallback)
-- **HTTP Client**: Native Fetch API
+- **Framework**: React 19.1.1 with TypeScript
+- **Build Tool**: Vite 7.1.7
+- **State Management**: React Hooks
+- **HTTP Client**: Fetch API
 
-## 📁 Project Structure
+## Data Flow Diagram
 
 ```
-technical-books-search/
-├── back/                          # Go backend
-│   ├── cmd/
-│   │   └── api/
-│   │       └── main.go           # Application entry point
-│   ├── internal/
-│   │   ├── handler/              # HTTP request handlers
-│   │   │   ├── favorites.go
-│   │   │   ├── search.go
-│   │   │   └── tsundoku.go
-│   │   ├── infra/                # Infrastructure layer
-│   │   │   ├── favorites/
-│   │   │   │   └── filestore/   # File-based favorites storage
-│   │   │   ├── googlebooks/     # Google Books API client
-│   │   │   └── tsundoku/
-│   │   │       └── filestore/   # File-based tsundoku storage
-│   │   ├── server/               # HTTP server & routing
-│   │   │   └── router.go
-│   │   └── service/              # Business logic layer
-│   │       ├── books/
-│   │       ├── favorites/
-│   │       └── tsundoku/
-│   ├── data/                     # JSON data storage
-│   │   ├── favorites.json
-│   │   └── tsundoku.json
-│   ├── go.mod
-│   └── go.sum
-├── front/                         # React frontend
-│   ├── src/
-│   │   ├── components/           # Reusable UI components
-│   │   │   ├── Pagination.tsx
-│   │   │   ├── ResultCard.tsx
-│   │   │   ├── ResultsGrid.tsx
-│   │   │   ├── SearchBar.tsx
-│   │   │   └── TechTags.tsx
-│   │   ├── hooks/                # Custom React hooks
-│   │   │   ├── useBooksSearch.ts
-│   │   │   ├── useFavorites.ts
-│   │   │   └── useTsundoku.ts
-│   │   ├── pages/                # Page components
-│   │   │   ├── FavoritesPage.tsx
-│   │   │   ├── SearchPage.tsx
-│   │   │   └── TsundokuPage.tsx
-│   │   ├── api.ts                # API client functions
-│   │   ├── App.tsx               # Main application component
-│   │   ├── index.css             # Global styles
-│   │   ├── main.tsx              # Application entry point
-│   │   ├── tags.ts               # Technology tags configuration
-│   │   └── types.ts              # TypeScript type definitions
-│   ├── index.html
-│   ├── package.json
-│   ├── tsconfig.json
-│   └── vite.config.js
-└── README.md
+┌────────────────┐
+│  User Action   │
+└───────┬────────┘
+        │
+        ▼
+┌───────────────────────────────────┐
+│  React Component (SearchPage)     │
+│  - Calls custom hook              │
+└───────┬───────────────────────────┘
+        │
+        ▼
+┌───────────────────────────────────┐
+│  Custom Hook (useBooksSearch)     │
+│  - Manages state                  │
+│  - Calls API client               │
+└───────┬───────────────────────────┘
+        │
+        ▼
+┌───────────────────────────────────┐
+│  API Client (api.ts)              │
+│  - Constructs HTTP request        │
+└───────┬───────────────────────────┘
+        │ HTTP/REST
+        ▼
+┌───────────────────────────────────┐
+│  Backend Handler                  │
+│  - Validates request              │
+│  - Calls service layer            │
+└───────┬───────────────────────────┘
+        │
+        ▼
+┌───────────────────────────────────┐
+│  Service Layer                    │
+│  - Business logic                 │
+│  - Calls repository/client        │
+└───────┬───────────┬───────────────┘
+        │           │
+        ▼           ▼
+┌─────────────┐  ┌──────────────────┐
+│  Google     │  │  File Repository │
+│  Books API  │  │  (JSON Storage)  │
+└─────────────┘  └──────────────────┘
 ```
 
-## 🛠️ Installation & Setup
+## API Integration Details
+
+### Google Books API Integration
+- **Base URL**: `https://www.googleapis.com/books/v1/volumes`
+- **Authentication**: API Key (optional, passed via query parameter)
+- **Request Method**: GET
+- **Response Format**: JSON
+
+### Backend API Client Pattern
+```
+infra/googlebooks/client.go implements:
+- HTTP client configuration
+- Request construction with query parameters
+- Response parsing and error handling
+- Rate limiting considerations
+```
+
+### Frontend API Client Pattern
+```
+src/api.ts implements:
+- Typed API functions with TypeScript
+- Error handling with custom ApiError class
+- Response parsing utilities
+- Base URL configuration (localhost:8080)
+```
+
+## Project Structure
+
+```
+back/
+├── cmd/api/main.go              # Entry point, dependency injection
+├── internal/
+│   ├── handler/                 # HTTP handlers
+│   ├── service/                 # Business logic
+│   └── infra/                   # External integrations
+│       ├── googlebooks/         # Google Books API client
+│       └── {favorites,tsundoku}/filestore/  # JSON storage
+└── data/                        # Data files
+
+front/
+├── src/
+│   ├── components/              # UI components
+│   ├── hooks/                   # Custom React hooks
+│   ├── pages/                   # Page components
+│   └── api.ts                   # API client
+```
+
+## Installation & Setup
 
 ### Prerequisites
-- **Go**: 1.25.3 or higher
-- **Node.js**: 18.x or higher
-- **npm**: 9.x or higher
+- Go 1.25.3 or higher
+- Node.js 18.x or higher
 
 ### Backend Setup
 
-1. Navigate to the backend directory:
 ```bash
 cd back
-```
-
-2. Install Go dependencies:
-```bash
 go mod tidy
-```
 
-3. (Optional) Set environment variables:
-```bash
-# Windows PowerShell
-$env:BOOKS_BASE_URL="https://www.googleapis.com/books/v1/volumes"
-$env:BOOKS_API_KEY="your-api-key-here"  # Optional - Google Books API works without key
+# Optional: Set environment variables
+# export BOOKS_API_KEY="your-api-key"
 
-# Linux/Mac
-export BOOKS_BASE_URL="https://www.googleapis.com/books/v1/volumes"
-export BOOKS_API_KEY="your-api-key-here"  # Optional
-```
-
-4. Run the backend server:
-```bash
 go run cmd/api/main.go
 ```
 
-The backend will start on `http://localhost:8080`
+Backend runs on `http://localhost:8080`
 
 ### Frontend Setup
 
-1. Navigate to the frontend directory:
 ```bash
 cd front
-```
-
-2. Install dependencies:
-```bash
 npm install
-```
-
-3. Start the development server:
-```bash
 npm run dev
 ```
 
-The frontend will start on `http://localhost:5173` (or `http://localhost:5174` if 5173 is in use)
+Frontend runs on `http://localhost:5173`
 
-## 🎯 Usage
+## Environment Variables
 
-### Search for Books
-1. Open the application in your browser
-2. Select technology tags or enter keywords in the search box
-3. Browse through search results with book covers and details
-4. Click on book cards to view more information on Google Books
+### Backend
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `BOOKS_BASE_URL` | Google Books API URL | `https://www.googleapis.com/books/v1/volumes` |
+| `BOOKS_API_KEY` | API key (optional) | - |
+| `STORAGE_BACKEND` | Storage type | `file` |
+| `TSUNDOKU_STORE_PATH` | Tsundoku data path | `data/tsundoku.json` |
+| `FAVORITES_STORE_PATH` | Favorites data path | `data/favorites.json` |
 
-### Add to Favorites
-1. Find a book in search results
-2. Click the ⭐ button in the top-right corner of the book card
-3. View all favorites in the "Favorites" tab
+## Usage
 
-### Manage Reading List (Tsundoku)
-1. Add books to your reading list using the ＋ button
-2. Click "Pick from Top" to start reading the first book in your stack
-3. Update book status as you progress:
-   - Mark as "Mark as Done" when finished
-   - Return to "Return to Stack" if you want to read it again later
+### Search Books
+- Enter keywords or select technology tags
+- Browse paginated results
 
-## 🔧 Configuration
+### Manage Favorites
+- Click star icon on book cards to add/remove favorites
+- View all favorites in dedicated page
 
-### Backend Configuration
+### Track Reading (Tsundoku)
+- Add books to reading list
+- Pick from top to start reading
+- Update status: Stacked, Currently Reading, Completed
 
-The backend can be configured using environment variables:
-
-| Variable | Description | Default | Required |
-|----------|-------------|---------|----------|
-| `BOOKS_BASE_URL` | Google Books API base URL | `https://www.googleapis.com/books/v1/volumes` | No |
-| `BOOKS_API_KEY` | Google Books API key | - | No |
-| `STORAGE_BACKEND` | Storage type (`file`) | `file` | No |
-| `TSUNDOKU_STORE_PATH` | Path to tsundoku JSON file | `data/tsundoku.json` | No |
-| `FAVORITES_STORE_PATH` | Path to favorites JSON file | `data/favorites.json` | No |
-
-### Frontend Configuration
-
-The frontend proxies API requests to the backend. Update `vite.config.js` if you need to change the backend URL:
-
-```javascript
-export default defineConfig({
-  server: {
-    proxy: {
-      '/api': 'http://localhost:8080'
-    }
-  }
-})
-```
-
-## 📡 API Endpoints
-
-### Books Search
-- `GET /api/technical-books?q={query}&page={page}` - Search for technical books
-
-### Tsundoku
-- `GET /api/tsundoku` - Get all tsundoku items
-- `POST /api/tsundoku` - Add a book to tsundoku
-- `POST /api/tsundoku/pickup` - Pick up the first book from stack
-- `POST /api/tsundoku/{id}/pickup` - Pick up a specific book
-- `POST /api/tsundoku/{id}/status` - Update book status
-- `POST /api/tsundoku/{id}/restack` - Return book to stack
-
-### Favorites
-- `GET /api/favorites` - Get all favorite items
-- `POST /api/favorites` - Add a book to favorites
-- `DELETE /api/favorites/{id}` - Remove a book from favorites
-
-### Health Check
-- `GET /health` - Server health check
-
-## 🏗️ Building for Production
+## Building for Production
 
 ### Backend
 ```bash
@@ -253,56 +265,19 @@ cd front
 npm run build
 ```
 
-The built files will be in the `front/dist` directory.
+Output in `front/dist/`
 
-## 🧪 Testing
+## Architecture Pattern
 
-### Backend
-```bash
-cd back
-go test ./...
-```
+**Clean Architecture** with clear separation:
+- Handler Layer: HTTP request/response handling
+- Service Layer: Business logic
+- Infrastructure Layer: External API and file storage
+- Repository Pattern: Data access abstraction
 
-### Frontend
-```bash
-cd front
-npm run test
-```
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 👤 Author
-
-**Kevin Ryou Inoue**
-- GitHub: [@KevinRyouInoue](https://github.com/KevinRyouInoue)
-- Repository: [Library_Go](https://github.com/KevinRyouInoue/Library_Go)
-
-## 🙏 Acknowledgments
-
-- Google Books API for providing book data
-- The Go community for excellent libraries
-- React and Vite teams for amazing developer experience
-- All contributors and users of this project
-
-## 📸 Screenshots
-
-### Search Page
-Beautiful gradient interface with technology tag filters and real-time search results.
-
-### Favorites Page
-Grid layout displaying all your favorite technical books with cover images and metadata.
+**Dependency Injection** in [back/cmd/api/main.go](back/cmd/api/main.go):
+- Services depend on repository interfaces
+- Infrastructure implementations injected at startup
 
 ### Tsundoku Dashboard
 Organized reading list management with three status categories for tracking your reading progress.
